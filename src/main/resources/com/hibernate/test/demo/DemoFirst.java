@@ -16,7 +16,7 @@ public class DemoFirst {
         session.beginTransaction();  
           
         try {
-			Student student = new Student();  
+        	Student student = new Student();  
 			student.setFirstName("Stro");  
 			student.setAge(26);  
 			  
