@@ -1,12 +1,23 @@
 package com.hibernate.test.Services;
 
-public class UserService {
-	public boolean authenticate(String username, String password)
+import com.hibernate.test.DAO.UserDAOImpl;
+import com.hibernate.test.api.UserDAOInterface;
+import com.hibernate.test.pojo.User;
+
+public class UserService implements UserServiceInterface {
+	public User authenticate(String username, String password)
 	{
-		//input validation
-		//valid input - create a DAO object
-		
-		//get the result
-		//send the result
+		try
+		{
+			//input validation
+			//if valid input - create a DAO object
+			UserDAOInterface userDao = UserDAOImpl.getUserDAOImpl();
+			return userDao.getUserInfo(username, password);
+
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace()
+		}
 	}
 }

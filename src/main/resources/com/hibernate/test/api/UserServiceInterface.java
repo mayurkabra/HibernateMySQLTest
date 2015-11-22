@@ -1,5 +1,7 @@
 package com.hibernate.test.api;
 
+import com.hibernate.test.pojo.User;
+
 public interface UserServiceInterface {
 
 	//This method will create a new user in the system
@@ -8,8 +10,8 @@ public interface UserServiceInterface {
 	
 	//This method will check whether the user is a valid one or not
 	//@param username and password of the user
-	//@return true if valid else false
-	public boolean authenticateUser(String username, String password);
+	//@return User if authenticated, else null
+	public User authenticateUser(String username, String password);
 	
 	//This method allows you to edit information for an existing user
 	//@param User object with updated user information

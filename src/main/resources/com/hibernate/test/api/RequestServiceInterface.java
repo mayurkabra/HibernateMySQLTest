@@ -1,5 +1,9 @@
 package com.hibernate.test.api;
 
+import java.util.List;
+
+import com.hibernate.test.pojo.Request;
+
 public interface RequestServiceInterface {
 
 	//This method will create a new ride in the system
@@ -17,4 +21,7 @@ public interface RequestServiceInterface {
 	//This method allows you to edit information for an existing request
 	//@param Request object with updated request information
 	public void editRide(Request updatedRequest);
+	
+	//This method will fetch all the Requests
+	public List<Request> getAllRequests();
 }

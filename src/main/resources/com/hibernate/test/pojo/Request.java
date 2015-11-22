@@ -17,7 +17,7 @@ public class Request {
 	private Integer Id;
 	
 	private String pickupPlace;
-	private String destinationPlace;
+	private String destination;
 	private Date startTime;
 	private String comments;
 	private Date requestPublished;
@@ -25,10 +25,10 @@ public class Request {
 	
 	public Request() {};
 	
-	public Request(String pickupPlace, String destinationPlace, Date startTime, String comments, Date requestPublished, Integer requestedUserId)
+	public Request(String pickupPlace, String destination, Date startTime, String comments, Date requestPublished, Integer requestedUserId)
 	{
 		this.pickupPlace = pickupPlace;
-		this.destinationPlace = destinationPlace;
+		this.destination = destination;
 		this.startTime = startTime;
 		this.comments = comments;
 		this.requestPublished = requestPublished;
@@ -65,13 +65,17 @@ public class Request {
 	}
 	
 	
+	public void setId(Integer Id)
+	{
+		this.Id = Id;
+	}
 	public void setPickupPlace(String pickupPlace)
 	{
 		this.pickupPlace = pickupPlace;
 	}
-	public void setDestinationPlace(String destinationPlace)
+	public void setDestinationPlace(String destination)
 	{
-		this.destinationPlace = destinationPlace;
+		this.destination = destination;
 	}
 	public void setStartTime(Date startTime)
 	{

@@ -1,5 +1,6 @@
 package com.hibernate.test.controller;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,5 +19,4 @@ public class FirstController {
 		modelAndView.setViewName("test");
 		return modelAndView;
 	}
-
 }
