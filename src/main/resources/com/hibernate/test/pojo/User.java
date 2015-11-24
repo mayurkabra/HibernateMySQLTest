@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import java.util.List;
+
 import javax.persistence.Column;
 
 @Entity
@@ -14,7 +18,8 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer Id;
+	@Column(name="user_id")
+	private Integer userId;
 	
 	@Column(name="Username")
 	private String username;
@@ -34,6 +39,9 @@ public class User {
 	@Column(name="MobileNo")
 	private String mobileNo;
 	
+	@OneToMany(mappedBy = "rideOwner")
+	private List<Ride> ownedRides;
+	
 	public User() {};
 	
 	public User(String username, String password, String firstName, String lastName, String emailAddress, String mobileNo)
@@ -46,9 +54,9 @@ public class User {
 		this.mobileNo = mobileNo;
 	}
 	
-	public Integer getId()
+	public Integer getUserId()
 	{
-		return Id;
+		return userId;
 	}
 	public String getFirstName()
 	{
@@ -68,9 +76,9 @@ public class User {
 	}
 	
 	
-	public void setId(Integer Id)
+	public void setUserId(Integer userId)
 	{
-		this.Id = Id;
+		this.userId = userId;
 	}
 	public void setUserName(String username)
 	{
@@ -97,9 +105,17 @@ public class User {
 		this.mobileNo = mobileNo;
 	}
 	
+	public List<Ride> getOwnedRides() {
+		return ownedRides;
+	}
+
+	public void setOwnedRides(List<Ride> ownedRides) {
+		this.ownedRides = ownedRides;
+	}
+
 	public String toString()
 	{
-		return "Id - "+ this.getId()+ ", FirstName - " + this.getFirstName() +", LastName - " 
+		return "userId - "+ this.getUserId()+ ", FirstName - " + this.getFirstName() +", LastName - " 
 				+ this.getLastName() + ", EmailAddress - " + this.getEmailAddress(); 
 	}
 }

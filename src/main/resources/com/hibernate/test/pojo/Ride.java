@@ -2,11 +2,16 @@ package com.hibernate.test.pojo;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="ride")
@@ -16,22 +21,41 @@ public class Ride {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long rideId;
 	
+	@Column(name="start_point")
 	private String startPoint;
+	
+	@Column(name="destination")
 	private String destination;
+	
+	@Column(name="other_pickup_available")
 	private boolean isPickupOtherThanStartProvided;
+	
+	@Column(name="max_passengers")
 	private int maxNoOfPassengers;
-	private Date StartTime;
+	
+	@Temporal(TemporalType.TIMESTAMP)@Column(name="start_time")
+	private Date startTime;
+	
+	@Temporal(TemporalType.TIMESTAMP)@Column(name="posted_on")
 	private Date ridePostedOn; 
+	
+	@Column(name="price_per_user")
 	private float pricePerUser;
+	
+	@Column(name="negotiable")
 	private boolean isPriceNegotiable;
+	
+	@Column(name="comments")
 	private String comments;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
 	private User rideOwner;
 	
 	public Ride() {}
 
 
-	public int getRideId() {
+	public long getRideId() {
 		return rideId;
 	}
 
@@ -82,12 +106,12 @@ public class Ride {
 
 
 	public Date getStartTime() {
-		return StartTime;
+		return startTime;
 	}
 
 
 	public void setStartTime(Date startTime) {
-		StartTime = startTime;
+		startTime = startTime;
 	}
 
 
@@ -144,7 +168,7 @@ public class Ride {
 	public String toString() {
 		return "Ride [rideId=" + rideId + ", startPoint=" + startPoint + ", destination=" + destination
 				+ ", isPickupOtherThanStartProvided=" + isPickupOtherThanStartProvided + ", maxNoOfPassengers="
-				+ maxNoOfPassengers + ", StartTime=" + StartTime + ", ridePostedOn=" + ridePostedOn + ", pricePerUser="
+				+ maxNoOfPassengers + ", startTime=" + startTime + ", ridePostedOn=" + ridePostedOn + ", pricePerUser="
 				+ pricePerUser + ", isPriceNegotiable=" + isPriceNegotiable + ", comments=" + comments + "]";
 	};	
 }
