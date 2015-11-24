@@ -2,6 +2,7 @@ package com.hibernate.test.Services;
 
 import com.hibernate.test.DAO.UserDAOImpl;
 import com.hibernate.test.api.UserDAOInterface;
+import com.hibernate.test.api.UserServiceInterface;
 import com.hibernate.test.pojo.User;
 
 public class UserService implements UserServiceInterface {
@@ -17,7 +18,26 @@ public class UserService implements UserServiceInterface {
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace()
+			e.printStackTrace();
 		}
+		return null;
+	}
+
+	@Override
+	public void createUser(User newUser) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public User authenticateUser(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void editProfile(User newUser) {
+		// TODO Auto-generated method stub
+		
 	}
 }

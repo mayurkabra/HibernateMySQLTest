@@ -1,8 +1,9 @@
 package com.hibernate.test.junitTest;
 
-import static org.junit.Assert.*;
 import java.util.Date;
+
 import org.junit.Test;
+
 import com.hibernate.test.DAO.RideDAOImpl;
 import com.hibernate.test.api.RideDAOInterface;
 import com.hibernate.test.pojo.Ride;

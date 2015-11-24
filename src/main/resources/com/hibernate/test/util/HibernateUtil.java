@@ -5,6 +5,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;  
 import org.hibernate.service.ServiceRegistry;
 
+import com.hibernate.test.pojo.Request;
 import com.hibernate.test.pojo.Ride;
 import com.hibernate.test.pojo.Student;  
 import com.hibernate.test.pojo.User;  
@@ -20,6 +21,7 @@ public class HibernateUtil {
 		configuration.addAnnotatedClass(Student.class);
 		configuration.addAnnotatedClass(User.class);
 		configuration.addAnnotatedClass(Ride.class);
+		configuration.addAnnotatedClass(Request.class);
 		
 		// If you miss the below line then it will complaing about a missing dialect setting
 		serviceRegistryBuilder.applySettings(configuration.getProperties());

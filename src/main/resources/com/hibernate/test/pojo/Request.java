@@ -45,7 +45,7 @@ public class Request {
 	}
 	public String getDestinationPlace()
 	{
-		return destinationPlace;
+		return destination;
 	}
 	public Date getStartTime()
 	{

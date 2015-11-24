@@ -1,5 +1,11 @@
 package com.hibernate.test.api;
 
+import org.springframework.stereotype.Service;
+
+import com.hibernate.test.pojo.Ride;
+import com.hibernate.test.pojo.User;
+
+@Service
 public interface RideServiceInterface {
 
 	//This method will create a new ride in the system

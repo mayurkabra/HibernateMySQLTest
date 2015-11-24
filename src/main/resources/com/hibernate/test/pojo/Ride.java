@@ -49,7 +49,7 @@ public class Ride {
 	private String comments;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
+	@JoinColumn(name = "user_id")
 	private User rideOwner;
 	
 	public Ride() {}

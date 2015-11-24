@@ -6,14 +6,16 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.hibernate.test.api.RideDAOInterface;
 import com.hibernate.test.pojo.Ride;
 import com.hibernate.test.util.HibernateUtil;
 
+@Repository
 public class RideDAOImpl implements RideDAOInterface {
-	private static RideDAOInterface rideDAOImpl;
 	
+	@Override
 	public void createRide(Ride newRide)
 	{
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -32,6 +34,7 @@ public class RideDAOImpl implements RideDAOInterface {
 		session.close();
 	}
 	
+	@Override
 	public void editRide(Ride updatedRide)
 	{
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -50,6 +53,7 @@ public class RideDAOImpl implements RideDAOInterface {
 		session.close();
 	}
 	
+	@Override
 	public void deleteRide(Ride rideToDelete)
 	{
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -68,6 +72,7 @@ public class RideDAOImpl implements RideDAOInterface {
 		session.close();
 	}
 	
+	@Override
 	public Ride fetchRide(long rideId)
 	{
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -92,13 +97,4 @@ public class RideDAOImpl implements RideDAOInterface {
 		}
 	}
 	
-	public static RideDAOInterface getRideDAOImpl()
-	{
-		if(rideDAOImpl==null)
-		{
-			rideDAOImpl = new RideDAOImpl();
-		}
-		
-		return rideDAOImpl;
-	}
 }

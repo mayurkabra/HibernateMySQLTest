@@ -15,6 +15,7 @@ public class UserController {
 	@RequestMapping(value="login", method = RequestMethod.POST)
 	public ModelAndView login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
 	{
+		return null;
 		//get the login username and password
 		//pass it to the Service and get the result
 		//Send the acknowledgement through a ModelAndView

@@ -2,4 +2,5 @@
 
 <mapping class="com.hibernate.test.pojo.Student"/>
 <mapping class="com.hibernate.test.pojo.User" />
-<mapping class="com.hibernate.test.pojo.Request"
+<mapping class="com.hibernate.test.pojo.Request" />
+<mapping class="com.hibernate.test.pojo.Ride" />
