@@ -1,96 +1,117 @@
 package com.hibernate.test.pojo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name="Request")
+@Table(name="request")
 public class Request {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer Id;
+	private long request_id;
 	
+	@Column(name="pickup_place")
 	private String pickupPlace;
+	
+	@Column(name="destination")
 	private String destination;
+	
+	@Temporal(TemporalType.TIMESTAMP)@Column(name="start_time")
 	private Date startTime;
+	
+	@Column(name="comments")
 	private String comments;
-	private Date requestPublished;
-	private Integer requestedUserId;
 	
-	public Request() {};
+	@Temporal(TemporalType.TIMESTAMP)@Column(name="request_time")
+	private Date requestTime;
 	
-	public Request(String pickupPlace, String destination, Date startTime, String comments, Date requestPublished, Integer requestedUserId)
-	{
-		this.pickupPlace = pickupPlace;
-		this.destination = destination;
-		this.startTime = startTime;
-		this.comments = comments;
-		this.requestPublished = requestPublished;
-		this.requestedUserId = requestedUserId;
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User requestedBy;
+	
+	@OneToMany(mappedBy="request")
+	private List<RequestRideMapping> requestRideMappings;
+
+	public long getRequest_id() {
+		return request_id;
 	}
-	
-	public Integer getId()
-	{
-		return Id;
+
+	public void setRequest_id(long request_id) {
+		this.request_id = request_id;
 	}
-	public String getPickupPlace()
-	{
+
+	public String getPickupPlace() {
 		return pickupPlace;
 	}
-	public String getDestinationPlace()
-	{
-		return destination;
-	}
-	public Date getStartTime()
-	{
-		return startTime;
-	}
-	public String getComments()
-	{
-		return comments;
-	}
-	public Date getRequestPublished()
-	{
-		return requestPublished;
-	}
-	public Integer getRequestedUserId()
-	{
-		return requestedUserId;
-	}
-	
-	
-	public void setId(Integer Id)
-	{
-		this.Id = Id;
-	}
-	public void setPickupPlace(String pickupPlace)
-	{
+
+	public void setPickupPlace(String pickupPlace) {
 		this.pickupPlace = pickupPlace;
 	}
-	public void setDestinationPlace(String destination)
-	{
+
+	public String getDestination() {
+		return destination;
+	}
+
+	public void setDestination(String destination) {
 		this.destination = destination;
 	}
-	public void setStartTime(Date startTime)
-	{
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
-	public void setComments(String comments)
-	{
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
 		this.comments = comments;
 	}
-	public void setRequestPublished(Date requestPublished)
-	{
-		this.requestPublished = requestPublished;
+
+	public Date getRequestTime() {
+		return requestTime;
 	}
-	public void setRequestedUserId(Integer requestedUserId)
-	{
-		this.requestedUserId = requestedUserId;
+
+	public void setRequestTime(Date requestTime) {
+		this.requestTime = requestTime;
 	}
+
+	public User getRequestedBy() {
+		return requestedBy;
+	}
+
+	public void setRequestedBy(User requestedBy) {
+		this.requestedBy = requestedBy;
+	}
+
+	public List<RequestRideMapping> getRequestRideMappings() {
+		return requestRideMappings;
+	}
+
+	public void setRequestRideMappings(List<RequestRideMapping> requestRideMappings) {
+		this.requestRideMappings = requestRideMappings;
+	}
+	
+	
 }

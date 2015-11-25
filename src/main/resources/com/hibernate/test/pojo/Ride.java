@@ -1,6 +1,7 @@
 package com.hibernate.test.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -51,6 +53,9 @@ public class Ride {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User rideOwner;
+	
+	@OneToMany(mappedBy="ride")
+	private List<RequestRideMapping> requestRideMappings;
 	
 	public Ride() {}
 
@@ -164,11 +169,20 @@ public class Ride {
 		this.rideOwner = rideOwner;
 	}
 
-	@Override
-	public String toString() {
-		return "Ride [rideId=" + rideId + ", startPoint=" + startPoint + ", destination=" + destination
-				+ ", isPickupOtherThanStartProvided=" + isPickupOtherThanStartProvided + ", maxNoOfPassengers="
-				+ maxNoOfPassengers + ", startTime=" + startTime + ", ridePostedOn=" + ridePostedOn + ", pricePerUser="
-				+ pricePerUser + ", isPriceNegotiable=" + isPriceNegotiable + ", comments=" + comments + "]";
-	};	
+
+	public List<RequestRideMapping> getRequestRideMappings() {
+		return requestRideMappings;
+	}
+
+
+	public void setRequestRideMappings(List<RequestRideMapping> requestRideMappings) {
+		this.requestRideMappings = requestRideMappings;
+	}
+
+
+	public void setRideId(long rideId) {
+		this.rideId = rideId;
+	}
+	
+	
 }

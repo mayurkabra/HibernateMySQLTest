@@ -25,7 +25,7 @@ public class RequestMultiactionController {
 		ModelAndView modelAndView = new ModelAndView();
 		Request newRequest = new Request();
 		newRequest.setPickupPlace("PickPlace");
-		newRequest.setDestinationPlace("DestPlace");
+		newRequest.setDestination("DestPlace");
 		
 		requestServiceInterface.createRequest(newRequest);
 		
