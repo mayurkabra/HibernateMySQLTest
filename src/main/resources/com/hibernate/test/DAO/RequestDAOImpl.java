@@ -15,7 +15,6 @@ import com.hibernate.test.util.HibernateUtil;
 @Repository
 public class RequestDAOImpl implements RequestDAOInterface {
 	
-	@Override
 	public void createRequest(Request newRequest)
 	{
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -34,7 +33,6 @@ public class RequestDAOImpl implements RequestDAOInterface {
 		session.close();
 	}
 	
-	@Override
 	public void editRequest(Request updatedRequest)
 	{
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -53,7 +51,6 @@ public class RequestDAOImpl implements RequestDAOInterface {
 		session.close();
 	}
 	
-	@Override
 	public void deleteRequest(Request requestToDelete)
 	{
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -72,7 +69,6 @@ public class RequestDAOImpl implements RequestDAOInterface {
 		session.close();
 	}
 	
-	@Override
 	public Request fetchRequest(long RequestId)
 	{
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();

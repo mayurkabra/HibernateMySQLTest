@@ -41,70 +41,63 @@ public class User {
 	
 	@OneToMany(mappedBy = "rideOwner")
 	private List<Ride> ownedRides;
-	
-	public User() {};
-	
-	public User(String username, String password, String firstName, String lastName, String emailAddress, String mobileNo)
-	{
-		this.username = username;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.emailAddress = emailAddress;
-		this.mobileNo = mobileNo;
-	}
-	
-	public Integer getUserId()
-	{
+
+	public Integer getUserId() {
 		return userId;
 	}
-	public String getFirstName()
-	{
-		return firstName;
-	}
-	public String getLastName()
-	{
-		return lastName;
-	}
-	public String getEmailAddress()
-	{
-		return emailAddress;
-	}
-	public String getMobileNo()
-	{
-		return mobileNo;
-	}
-	
-	
-	public void setUserId(Integer userId)
-	{
+
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	public void setUserName(String username)
-	{
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
 		this.username = username;
 	}
-	public void setPassword(String password)
-	{
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
 		this.password = password;
 	}
-	public void setFirstName(String firstName)
-	{
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	public void setLastName(String lastName)
-	{
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public void setEmailAddress(String emailAddress)
-	{
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
-	public void setMobileNo(String mobileNo)
-	{
+
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
-	
+
 	public List<Ride> getOwnedRides() {
 		return ownedRides;
 	}
@@ -112,10 +105,6 @@ public class User {
 	public void setOwnedRides(List<Ride> ownedRides) {
 		this.ownedRides = ownedRides;
 	}
-
-	public String toString()
-	{
-		return "userId - "+ this.getUserId()+ ", FirstName - " + this.getFirstName() +", LastName - " 
-				+ this.getLastName() + ", EmailAddress - " + this.getEmailAddress(); 
-	}
+	
+	
 }

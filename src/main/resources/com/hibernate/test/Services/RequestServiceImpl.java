@@ -14,31 +14,26 @@ public class RequestServiceImpl implements com.hibernate.test.api.RequestService
 	@Autowired
 	RequestDAOInterface requestDAO;
 
-	@Override
 	public void createRequest(Request newRequest) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void respondToRequest() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void cancelRequest(long requestId) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void editRequest(Request updatedRequest) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public List<Request> getAllRequests() {
 		// TODO Auto-generated method stub
 		return null;

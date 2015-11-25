@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,21 +53,17 @@ public class Ride {
 	private String comments;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name="user_id")
 	private User rideOwner;
 	
-	@OneToMany(mappedBy="ride")
+	@OneToMany(mappedBy="ride", fetch = FetchType.LAZY)
 	private List<RequestRideMapping> requestRideMappings;
-	
-	public Ride() {}
-
 
 	public long getRideId() {
 		return rideId;
 	}
 
-
-	public void setRideId(int rideId) {
+	public void setRideId(long rideId) {
 		this.rideId = rideId;
 	}
 
@@ -117,7 +114,7 @@ public class Ride {
 
 
 	public void setStartTime(Date startTime) {
-		startTime = startTime;
+		this.startTime = startTime;
 	}
 
 
@@ -169,21 +166,6 @@ public class Ride {
 	public void setRideOwner(User rideOwner) {
 		this.rideOwner = rideOwner;
 	}
-	
-	public List<RequestRideMapping> getRequestRideMappings() {
-		return requestRideMappings;
-	}
-
-
-	public void setRequestRideMappings(List<RequestRideMapping> requestRideMappings) {
-		this.requestRideMappings = requestRideMappings;
-	}
-
-
-	public void setRideId(long rideId) {
-		this.rideId = rideId;
-	}
-
 
 	public List<RequestRideMapping> getRequestRideMappings() {
 		return requestRideMappings;
@@ -194,9 +176,13 @@ public class Ride {
 		this.requestRideMappings = requestRideMappings;
 	}
 
-
-	public void setRideId(long rideId) {
-		this.rideId = rideId;
+	@Override
+	public String toString() {
+		return "Ride [startPoint=" + startPoint + ", destination=" + destination + ", isPickupOtherThanStartProvided="
+				+ isPickupOtherThanStartProvided + ", maxNoOfPassengers=" + maxNoOfPassengers + ", startTime="
+				+ startTime + ", ridePostedOn=" + ridePostedOn + ", pricePerUser=" + pricePerUser
+				+ ", isPriceNegotiable=" + isPriceNegotiable + ", comments=" + comments + ", rideOwner=" + rideOwner
+				+ "]";
 	}
 	
 	

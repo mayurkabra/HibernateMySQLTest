@@ -23,19 +23,16 @@ public class UserService implements UserServiceInterface {
 		return null;
 	}
 
-	@Override
 	public void createUser(User newUser) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public User authenticateUser(String username, String password) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void editProfile(User newUser) {
 		// TODO Auto-generated method stub
 		

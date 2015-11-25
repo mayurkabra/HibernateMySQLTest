@@ -17,6 +17,7 @@ public class RequestRideMapping {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="request_ride_id")
 	private long rrmId;
 
 	@ManyToOne

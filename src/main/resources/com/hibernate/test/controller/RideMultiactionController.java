@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hibernate.test.api.RideServiceInterface;
+import com.hibernate.test.pojo.Request;
 import com.hibernate.test.pojo.Ride;
+import com.hibernate.test.pojo.User;
 
 @Controller
 @RequestMapping(value="/rmc")
@@ -25,6 +27,9 @@ public class RideMultiactionController {
 	public ModelAndView createRide(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Ride ride){
 		ModelAndView modelAndView = new ModelAndView();
 		Ride newRide = ride;
+		User user = new User();
+		user.setUserId(1);
+		ride.setRideOwner(user);
 		System.out.println(newRide.getStartPoint());
 		System.out.println(newRide.getMaxNoOfPassengers());
 		//newRide.setStartPoint("Start");
@@ -64,11 +69,11 @@ public class RideMultiactionController {
 	}
 	
 	@RequestMapping(value="fetchUserRides", method = RequestMethod.GET)
-	public ModelAndView fetchUserRides(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, String name){
+	public ModelAndView fetchUserRides(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, int userId){
 		ModelAndView modelAndView = new ModelAndView();
-		long userId=1;//This data will be obtained from requests
+		//long userId=1;//This data will be obtained from requests
 		List<Ride> userRideList = rideServiceInterface.getUserRides(userId);
-		
+		System.out.println(userRideList);
 		modelAndView.setViewName("test");
 		return modelAndView;
 	}
@@ -78,6 +83,14 @@ public class RideMultiactionController {
 		ModelAndView modelAndView = new ModelAndView();
 		Ride ride = rideServiceInterface.fetchRide(rideId);
 		System.out.println(ride.toString());
+		modelAndView.setViewName("test");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="addRequestToRide", method = RequestMethod.GET)
+	public ModelAndView addRequestToRide(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Request request, Ride ride){
+		ModelAndView modelAndView = new ModelAndView();
+		rideServiceInterface.addRequestToRide(request, ride);
 		modelAndView.setViewName("test");
 		return modelAndView;
 	}

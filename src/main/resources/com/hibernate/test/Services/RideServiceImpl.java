@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.hibernate.test.api.RideDAOInterface;
 import com.hibernate.test.pojo.Request;
+import com.hibernate.test.pojo.RequestRideMapping;
+import com.hibernate.test.pojo.RequestRideStatus;
 import com.hibernate.test.pojo.Ride;
 import com.hibernate.test.pojo.User;
 
@@ -31,11 +33,19 @@ public class RideServiceImpl implements com.hibernate.test.api.RideServiceInterf
 		//}
 	}
 
-	public List<Ride> getUserRides(long userId) {
+	public List<Ride> getUserRides(int userId) {
 		return rideDAO.fetchUserRides(userId);	
 	}
 	
 	public Ride fetchRide(long rideId) {
 		return rideDAO.fetchRide(rideId);
+	}
+	
+	public void addRequestToRide(Request request, Ride ride){
+		RequestRideMapping mappingObj = new RequestRideMapping();
+		mappingObj.setRequest(request);
+		mappingObj.setRide(ride);
+		mappingObj.setRequestRideStatus(RequestRideStatus.PENDING);
+		rideDAO.addRequestToRide(mappingObj);
 	}
 }

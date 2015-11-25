@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.hibernate.test.pojo.Request;
 import com.hibernate.test.pojo.Ride;
 import com.hibernate.test.pojo.User;
 
@@ -22,7 +23,9 @@ public interface RideServiceInterface {
 	//@param identifier of the ride
 	public void deleteRide(long rideId);
 	
-	public List<Ride> getUserRides(long userId);
+	public List<Ride> getUserRides(int userId);
 	
 	public Ride fetchRide(long rideId);
+	
+	public void addRequestToRide(Request request, Ride ride);
 }

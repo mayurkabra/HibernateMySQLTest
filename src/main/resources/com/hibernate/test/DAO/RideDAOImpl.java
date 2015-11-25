@@ -141,7 +141,7 @@ public class RideDAOImpl implements RideDAOInterface {
 		}
 	}
 	
-	public List<Ride> fetchUserRides(long userId){
+	public List<Ride> fetchUserRides(int userId){
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
@@ -164,7 +164,20 @@ public class RideDAOImpl implements RideDAOInterface {
 		}
 	}
 	
-	public void addRequestToRide(){
+	public void addRequestToRide(RequestRideMapping mappingObj){
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
 		
+		try
+		{
+			session.save(mappingObj);
+			session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		session.close();
 	}
 }
