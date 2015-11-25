@@ -21,6 +21,7 @@ public class Ride {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="ride_id")
 	private long rideId;
 	
 	@Column(name="start_point")
@@ -51,138 +52,109 @@ public class Ride {
 	private String comments;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name="user_id")
 	private User rideOwner;
 	
 	@OneToMany(mappedBy="ride")
 	private List<RequestRideMapping> requestRideMappings;
-	
-	public Ride() {}
-
 
 	public long getRideId() {
 		return rideId;
 	}
 
-
-	public void setRideId(int rideId) {
+	public void setRideId(long rideId) {
 		this.rideId = rideId;
 	}
-
 
 	public String getStartPoint() {
 		return startPoint;
 	}
 
-
 	public void setStartPoint(String startPoint) {
 		this.startPoint = startPoint;
 	}
-
 
 	public String getDestination() {
 		return destination;
 	}
 
-
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
-
 
 	public boolean isPickupOtherThanStartProvided() {
 		return isPickupOtherThanStartProvided;
 	}
 
-
 	public void setPickupOtherThanStartProvided(boolean isPickupOtherThanStartProvided) {
 		this.isPickupOtherThanStartProvided = isPickupOtherThanStartProvided;
 	}
-
 
 	public int getMaxNoOfPassengers() {
 		return maxNoOfPassengers;
 	}
 
-
 	public void setMaxNoOfPassengers(int maxNoOfPassengers) {
 		this.maxNoOfPassengers = maxNoOfPassengers;
 	}
-
 
 	public Date getStartTime() {
 		return startTime;
 	}
 
-
 	public void setStartTime(Date startTime) {
-		startTime = startTime;
+		this.startTime = startTime;
 	}
-
 
 	public Date getRidePostedOn() {
 		return ridePostedOn;
 	}
 
-
 	public void setRidePostedOn(Date ridePostedOn) {
 		this.ridePostedOn = ridePostedOn;
 	}
-
 
 	public float getPricePerUser() {
 		return pricePerUser;
 	}
 
-
 	public void setPricePerUser(float pricePerUser) {
 		this.pricePerUser = pricePerUser;
 	}
-
 
 	public boolean isPriceNegotiable() {
 		return isPriceNegotiable;
 	}
 
-
 	public void setPriceNegotiable(boolean isPriceNegotiable) {
 		this.isPriceNegotiable = isPriceNegotiable;
 	}
-
 
 	public String getComments() {
 		return comments;
 	}
 
-
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
-
 
 	public User getRideOwner() {
 		return rideOwner;
 	}
 
-
 	public void setRideOwner(User rideOwner) {
 		this.rideOwner = rideOwner;
 	}
-
 
 	public List<RequestRideMapping> getRequestRideMappings() {
 		return requestRideMappings;
 	}
 
-
 	public void setRequestRideMappings(List<RequestRideMapping> requestRideMappings) {
 		this.requestRideMappings = requestRideMappings;
 	}
-
-
-	public void setRideId(long rideId) {
-		this.rideId = rideId;
-	}
+	
+	
 	
 	
 }
