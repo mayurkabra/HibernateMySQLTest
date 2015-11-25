@@ -1,6 +1,7 @@
 package com.hibernate.test.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,6 +21,7 @@ public class Ride {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="ride_id")
 	private long rideId;
 	
 	@Column(name="start_point")
@@ -51,6 +54,9 @@ public class Ride {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User rideOwner;
+	
+	@OneToMany(mappedBy="ride")
+	private List<RequestRideMapping> requestRideMappings;
 	
 	public Ride() {}
 
@@ -162,6 +168,20 @@ public class Ride {
 
 	public void setRideOwner(User rideOwner) {
 		this.rideOwner = rideOwner;
+	}
+	
+	public List<RequestRideMapping> getRequestRideMappings() {
+		return requestRideMappings;
+	}
+
+
+	public void setRequestRideMappings(List<RequestRideMapping> requestRideMappings) {
+		this.requestRideMappings = requestRideMappings;
+	}
+
+
+	public void setRideId(long rideId) {
+		this.rideId = rideId;
 	}
 
 	@Override
