@@ -20,7 +20,7 @@ public interface RequestServiceInterface {
 	
 	//This method allows you to edit information for an existing request
 	//@param Request object with updated request information
-	public void editRide(Request updatedRequest);
+	public void editRequest(Request updatedRequest);
 	
 	//This method will fetch all the Requests
 	public List<Request> getAllRequests();
