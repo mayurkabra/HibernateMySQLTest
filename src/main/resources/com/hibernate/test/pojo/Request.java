@@ -43,7 +43,7 @@ public class Request {
 	private Date requestTime;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name="user_id")
 	private User requestedBy;
 	
 	@OneToMany(mappedBy="request")
@@ -112,6 +112,8 @@ public class Request {
 	public void setRequestRideMappings(List<RequestRideMapping> requestRideMappings) {
 		this.requestRideMappings = requestRideMappings;
 	}
+	
+	
 	
 	
 }

@@ -1,5 +1,7 @@
 package com.hibernate.test.api;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.hibernate.test.pojo.Ride;
@@ -14,9 +16,13 @@ public interface RideServiceInterface {
 	
 	//This method allows you to edit information for an existing ride
 	//@param Ride object with updated ride information
-	public void editRide(User newUser);
+	public void editRide(Ride updatesRide);
 	
 	//This method allows you to delete a ride
 	//@param identifier of the ride
-	public void cancelRide(long rideId);
+	public void deleteRide(long rideId);
+	
+	public List<Ride> getUserRides(long userId);
+	
+	public Ride fetchRide(long rideId);
 }

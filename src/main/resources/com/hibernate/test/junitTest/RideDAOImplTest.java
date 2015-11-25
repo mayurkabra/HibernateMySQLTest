@@ -3,6 +3,7 @@ package com.hibernate.test.junitTest;
 import java.util.Date;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hibernate.test.DAO.RideDAOImpl;
 import com.hibernate.test.api.RideDAOInterface;
@@ -10,9 +11,12 @@ import com.hibernate.test.pojo.Ride;
 
 public class RideDAOImplTest {
 
+	@Autowired
+	RideDAOInterface rideInterface;
+	
 	@Test
 	public void testCreateRide() {
-		RideDAOInterface rideInterface = RideDAOImpl.getRideDAOImpl();
+		//RideDAOInterface rideInterface = RideDAOImpl.getRideDAOImpl();
 		Ride newRide = new Ride();
 		newRide.setStartPoint("New Brunswick");
 		newRide.setDestination("New York");
