@@ -184,11 +184,20 @@ public class Ride {
 		this.rideId = rideId;
 	}
 
-	@Override
-	public String toString() {
-		return "Ride [rideId=" + rideId + ", startPoint=" + startPoint + ", destination=" + destination
-				+ ", isPickupOtherThanStartProvided=" + isPickupOtherThanStartProvided + ", maxNoOfPassengers="
-				+ maxNoOfPassengers + ", startTime=" + startTime + ", ridePostedOn=" + ridePostedOn + ", pricePerUser="
-				+ pricePerUser + ", isPriceNegotiable=" + isPriceNegotiable + ", comments=" + comments + "]";
-	};	
+
+	public List<RequestRideMapping> getRequestRideMappings() {
+		return requestRideMappings;
+	}
+
+
+	public void setRequestRideMappings(List<RequestRideMapping> requestRideMappings) {
+		this.requestRideMappings = requestRideMappings;
+	}
+
+
+	public void setRideId(long rideId) {
+		this.rideId = rideId;
+	}
+	
+	
 }
