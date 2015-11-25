@@ -1,5 +1,7 @@
 package com.hibernate.test.Services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,23 +16,26 @@ public class RideServiceImpl implements com.hibernate.test.api.RideServiceInterf
 	@Autowired
 	RideDAOInterface rideDAO;
 
-	@Override
 	public void createRide(Ride newRide) {
-		rideDAO.createRide(newRide);
-		
-		
+		rideDAO.createRide(newRide);	
 	}
 
-	@Override
-	public void editRide(User newUser) {
-		// TODO Auto-generated method stub
-		
+	public void editRide(Ride updatedRide) {
+		rideDAO.editRide(updatedRide);	
 	}
 
-	@Override
-	public void cancelRide(long rideId) {
-		// TODO Auto-generated method stub
-		
+	public void deleteRide(long rideId) {
+		//Ride rideToDelete = rideDAO.fetchRide(rideId);
+		//if(rideToDelete != null){
+			rideDAO.deleteRide(rideId);
+		//}
 	}
 
+	public List<Ride> getUserRides(long userId) {
+		return rideDAO.fetchUserRides(userId);	
+	}
+	
+	public Ride fetchRide(long rideId) {
+		return rideDAO.fetchRide(rideId);
+	}
 }
