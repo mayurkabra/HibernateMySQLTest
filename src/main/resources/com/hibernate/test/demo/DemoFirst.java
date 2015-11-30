@@ -108,7 +108,7 @@ public class DemoFirst {
 		ride.setRideId(1L);
 		
 		Request request = new Request();
-		request.setRequest_id(1L);
+		request.setRequest_id(2L);
 
 		RequestRideMapping mapping = new RequestRideMapping();
 		mapping.setRequest(request);
@@ -130,7 +130,9 @@ public class DemoFirst {
 		//criteria.add(Restrictions.idEq(1L));
 		criteria.add(Restrictions.eq("rideId", 1L));
 		Ride ride = (Ride)criteria.uniqueResult();
-		ride.getRequestRideMappings().get(0).getRequest().getDestination();
+		for(RequestRideMapping mapping: ride.getRequestRideMappings()){
+			System.out.println(mapping.getRequest().getPickupPlace()+" to "+mapping.getRequest().getDestination());
+		}
 
 		session.close();
 	}

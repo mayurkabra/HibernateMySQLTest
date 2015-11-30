@@ -4,14 +4,17 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import com.hibernate.test.api.UserDAOInterface;
 import com.hibernate.test.pojo.User;
 import com.hibernate.test.util.HibernateUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAOImpl implements UserDAOInterface {
+@Repository
+public class UserDAOImpl extends CustomHibernateDaoSupport implements UserDAOInterface {
 	private static UserDAOInterface userDAOImpl; 
 	
 	protected UserDAOImpl()
@@ -21,7 +24,8 @@ public class UserDAOImpl implements UserDAOInterface {
 	
 	public User getUserInfo(String username, String password)
 	{
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		return null;
+		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
 		try
@@ -42,12 +46,12 @@ public class UserDAOImpl implements UserDAOInterface {
 			e.printStackTrace();
 			session.close();
 			return null;
-		}
+		}*/
 	}
 	
 	public void createUser(User newUser)
 	{
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
@@ -60,12 +64,12 @@ public class UserDAOImpl implements UserDAOInterface {
 		{
 			e.printStackTrace();
 		}
-		session.close();
+		session.close();*/
 	}
 	
 	public void editProfile(User user)
 	{
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
@@ -77,16 +81,18 @@ public class UserDAOImpl implements UserDAOInterface {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
-	public static UserDAOInterface getUserDAOImpl()
-	{
-		if(userDAOImpl==null)
-		{
-			userDAOImpl = new UserDAOImpl();
+	@Override
+	public User findByUserName(String username) {
+		List<User> users = getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(User.class).list();
+
+		if (users.size() > 0) {
+			return users.get(0);
+		} else {
+			return null;
 		}
-		
-		return userDAOImpl;
+
 	}
 }

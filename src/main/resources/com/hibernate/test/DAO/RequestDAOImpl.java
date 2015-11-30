@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.hibernate.test.api.RequestDAOInterface;
@@ -13,12 +14,12 @@ import com.hibernate.test.pojo.Request;
 import com.hibernate.test.util.HibernateUtil;
 
 @Repository
-public class RequestDAOImpl implements RequestDAOInterface {
+public class RequestDAOImpl extends CustomHibernateDaoSupport implements RequestDAOInterface {
 	
 	@Override
 	public void createRequest(Request newRequest)
 	{
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
@@ -31,13 +32,22 @@ public class RequestDAOImpl implements RequestDAOInterface {
 		{
 			e.printStackTrace();
 		}
-		session.close();
+		session.close();*/
+		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session currentSession = sessionFactory.getCurrentSession();
+		currentSession.save(newRequest);*/
+		try {
+			getHibernateTemplate().save(newRequest);
+		} catch (DataAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
 	public void editRequest(Request updatedRequest)
 	{
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
@@ -50,13 +60,19 @@ public class RequestDAOImpl implements RequestDAOInterface {
 		{
 			e.printStackTrace();
 		}
-		session.close();
+		session.close();*/
+		try {
+			getHibernateTemplate().saveOrUpdate(updatedRequest);
+		} catch (DataAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
 	public void deleteRequest(Request requestToDelete)
 	{
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
@@ -69,32 +85,38 @@ public class RequestDAOImpl implements RequestDAOInterface {
 		{
 			e.printStackTrace();
 		}
-		session.close();
+		session.close();*/
 	}
 	
 	@Override
 	public Request fetchRequest(long RequestId)
 	{
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = sessionFactory.openSession();
+		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();*/
 		
 		try
 		{
 			Criteria criteria = session.createCriteria(Request.class);
-			criteria.add(Restrictions.eq("RequestId",RequestId));
+			criteria.add(Restrictions.eq("request_id",RequestId));
 			
 			List<Request> result = criteria.list();
 			if(result.isEmpty())
 				return null;
-			session.close();
 			return result.get(0);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			session.close();
 			return null;
 		}
+	}
+
+	@Override
+	public List<Request> getAllRequests() {
+		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+		Criteria criteria = session.createCriteria(Request.class);
+		return criteria.list();
 	}
 	
 }

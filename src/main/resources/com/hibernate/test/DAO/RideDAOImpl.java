@@ -18,7 +18,7 @@ public class RideDAOImpl implements RideDAOInterface {
 	
 	public void createRide(Ride newRide)
 	{
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
@@ -31,12 +31,12 @@ public class RideDAOImpl implements RideDAOInterface {
 		{
 			e.printStackTrace();
 		}
-		session.close();
+		session.close();*/
 	}
 	
 	public void editRide(Ride updatedRide)
 	{
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
@@ -49,7 +49,7 @@ public class RideDAOImpl implements RideDAOInterface {
 		{
 			e.printStackTrace();
 		}
-		session.close();
+		session.close();*/
 	}
 	
 	/*public void deleteRide(Ride rideToDelete)
@@ -72,7 +72,7 @@ public class RideDAOImpl implements RideDAOInterface {
 	
 	public void deleteRide(long rideId)
 	{
-		List<RequestRideMapping> result = fetchAllRequestRideMappings(rideId);
+		/*List<RequestRideMapping> result = fetchAllRequestRideMappings(rideId);
 		if(result != null){
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 			Session session = sessionFactory.openSession();
@@ -90,12 +90,13 @@ public class RideDAOImpl implements RideDAOInterface {
 				e.printStackTrace();
 			}
 			session.close();
-		}
+		}*/
 	}
 	
 	public List<RequestRideMapping> fetchAllRequestRideMappings(long rideId)
 	{
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		return null;
+		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		try
 		{
@@ -114,12 +115,13 @@ public class RideDAOImpl implements RideDAOInterface {
 			e.printStackTrace();
 			session.close();
 			return null;
-		}
+		}*/
 	}
 	
 	public Ride fetchRide(long rideId)
 	{
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		return null;
+		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
 		try
@@ -138,11 +140,12 @@ public class RideDAOImpl implements RideDAOInterface {
 			e.printStackTrace();
 			session.close();
 			return null;
-		}
+		}*/
 	}
 	
 	public List<Ride> fetchUserRides(long userId){
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		return null;
+		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
 		try
@@ -161,7 +164,7 @@ public class RideDAOImpl implements RideDAOInterface {
 			e.printStackTrace();
 			session.close();
 			return null;
-		}
+		}*/
 	}
 	
 	public void addRequestToRide(){

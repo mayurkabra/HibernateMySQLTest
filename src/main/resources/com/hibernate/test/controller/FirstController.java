@@ -19,4 +19,11 @@ public class FirstController {
 		modelAndView.setViewName("test");
 		return modelAndView;
 	}
+
+	@RequestMapping(value="login", method = RequestMethod.GET)
+	public ModelAndView login(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("login");
+		return modelAndView;
+	}
 }

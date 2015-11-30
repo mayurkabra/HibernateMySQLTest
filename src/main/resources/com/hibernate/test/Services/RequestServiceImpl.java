@@ -2,6 +2,8 @@ package com.hibernate.test.Services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,7 @@ import com.hibernate.test.api.RequestDAOInterface;
 import com.hibernate.test.pojo.Request;
 
 @Service
+@Transactional
 public class RequestServiceImpl implements com.hibernate.test.api.RequestServiceInterface {
 	
 	@Autowired
@@ -16,8 +19,7 @@ public class RequestServiceImpl implements com.hibernate.test.api.RequestService
 
 	@Override
 	public void createRequest(Request newRequest) {
-		// TODO Auto-generated method stub
-		
+		requestDAO.createRequest(newRequest);
 	}
 
 	@Override
@@ -40,8 +42,7 @@ public class RequestServiceImpl implements com.hibernate.test.api.RequestService
 
 	@Override
 	public List<Request> getAllRequests() {
-		// TODO Auto-generated method stub
-		return null;
+		return requestDAO.getAllRequests();
 	}
 
 }

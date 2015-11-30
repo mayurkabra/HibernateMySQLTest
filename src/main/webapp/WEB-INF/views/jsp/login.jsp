@@ -1,22 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
 <html>
 <head>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <title>jQuery Example</title>
-    <script>
-      $(document).ready(function() {
-    	  $.ajaxSetup({ cache: true });
-    	  $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
-    	    FB.init({
-    	      appId: '779300492196612',
-    	      version: 'v2.4' // or v2.0, v2.1, v2.2, v2.3
-    	    });     
-    	    $('#loginbutton,#feedbutton').removeAttr('disabled');
-    	  });
-      });
-    </script>
+<title>Facebook Login JavaScript Example</title>
+<meta charset="UTF-8">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.ajaxSetup({
+			cache : true
+		});
+		$.getScript('//connect.facebook.net/en_US/sdk.js', function() {
+			FB.init({
+				appId : '779300492196612',
+				version : 'v2.5'
+			});
+			$('#loginbutton,#feedbutton').removeAttr('disabled');
+			FB.getLoginStatus(updateStatusCallback);
+		});
+	});
+</script>
+</head>
 <body>
 	<script>
 		// This is called with the results from from FB.getLoginStatus().
@@ -110,7 +115,8 @@
   the FB.login() function when clicked.
 -->
 
-	<fb:login-button scope="public_profile,email" onlogin="checkLoginState(); " return_scopes=true>
+	<fb:login-button scope="public_profile,email"
+		onlogin="checkLoginState();">
 	</fb:login-button>
 
 	<!-- <div
@@ -121,6 +127,6 @@
 </div> -->
 
 	<div id="status"></div>
-	<h1>TEST SUCCESFULL</h1>
+
 </body>
 </html>
