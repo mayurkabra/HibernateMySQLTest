@@ -72,7 +72,7 @@ public class DemoFirst {
 		request.setRequestTime(new Date());
 		request.setStartTime(new Date());
 		User requestedBy = new User();
-		requestedBy.setUserId(1);
+		requestedBy.setUserId(1L);
 		request.setRequestedBy(requestedBy);
 		
 		session.save(request);
@@ -90,7 +90,7 @@ public class DemoFirst {
 		ride.setStartPoint("SP");
 		ride.setDestination("D");
 		User rideOwner = new User();
-		rideOwner.setUserId(1);
+		rideOwner.setUserId(1L);
 		ride.setRideOwner(rideOwner);
 		
 		session.save(ride);

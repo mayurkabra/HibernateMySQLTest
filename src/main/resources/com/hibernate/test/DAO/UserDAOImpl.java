@@ -1,13 +1,16 @@
 package com.hibernate.test.DAO;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.hibernate.test.api.UserDAOInterface;
 import com.hibernate.test.pojo.User;
+import com.hibernate.test.pojo.UserType;
 import com.hibernate.test.util.HibernateUtil;
 
 import java.util.ArrayList;
@@ -65,6 +68,12 @@ public class UserDAOImpl extends CustomHibernateDaoSupport implements UserDAOInt
 			e.printStackTrace();
 		}
 		session.close();*/
+		try {
+			getHibernateTemplate().save(newUser);
+		} catch (DataAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void editProfile(User user)
@@ -94,5 +103,20 @@ public class UserDAOImpl extends CustomHibernateDaoSupport implements UserDAOInt
 			return null;
 		}
 
+	}
+	
+	@Override
+	public User checkIfUserExistsByUserTypeAndId(UserType userType, String userTypeId){
+		try {
+			Criteria criteria = getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(User.class);
+			criteria.add(Restrictions.eq("userType", userType));
+			criteria.add(Restrictions.eq("userTypeId", userTypeId));
+			return (User) criteria.uniqueResult();
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 }

@@ -32,7 +32,7 @@ public class RequestMultiactionController {
 		request.setRequestTime(new Date());
 		request.setStartTime(new Date());
 		User requestedBy = new User();
-		requestedBy.setUserId(1);
+		requestedBy.setUserId(1L);
 		request.setRequestedBy(requestedBy);
 		
 		requestServiceInterface.createRequest(request);
@@ -46,6 +46,30 @@ public class RequestMultiactionController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		requestServiceInterface.getAllRequests();
+		
+		modelAndView.setViewName("test");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="formNewRequest", method = RequestMethod.GET)
+	public ModelAndView formNewRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.setViewName("new_request");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="submitNewRequest")
+	public ModelAndView newRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+			Request request){
+		ModelAndView modelAndView = new ModelAndView();
+		//Request request = new Request();
+		request.setRequestTime(new Date());
+		User requestedBy = new User();
+		requestedBy.setUserId(1L);
+		request.setRequestedBy(requestedBy);
+		
+		requestServiceInterface.createRequest(request);
 		
 		modelAndView.setViewName("test");
 		return modelAndView;

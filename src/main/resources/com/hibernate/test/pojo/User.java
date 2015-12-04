@@ -1,7 +1,8 @@
 package com.hibernate.test.pojo;
 
 import javax.persistence.Entity;
-
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +20,14 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="user_id")
-	private Integer userId;
+	private Long userId;
+	
+	@Column(name="user_type")
+	@Enumerated(EnumType.STRING)
+	private UserType userType;
+	
+	@Column (name="user_type_id")
+	private String userTypeId;
 	
 	@Column(name="Username")
 	private String username;
@@ -41,14 +49,6 @@ public class User {
 	
 	@OneToMany(mappedBy = "rideOwner")
 	private List<Ride> ownedRides;
-
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
 
 	public String getUsername() {
 		return username;
@@ -104,6 +104,30 @@ public class User {
 
 	public void setOwnedRides(List<Ride> ownedRides) {
 		this.ownedRides = ownedRides;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public UserType getUserType() {
+		return userType;
+	}
+
+	public void setUserType(UserType userType) {
+		this.userType = userType;
+	}
+
+	public String getUserTypeId() {
+		return userTypeId;
+	}
+
+	public void setUserTypeId(String userTypeId) {
+		this.userTypeId = userTypeId;
 	}
 	
 	
