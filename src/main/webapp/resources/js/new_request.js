@@ -32,5 +32,5 @@ function submit_new_request(){
 
 
 $(document).ready(function() {
-	$('#pickup_time').datetimepicker();
+	$('#startTime').datetimepicker();
 });
