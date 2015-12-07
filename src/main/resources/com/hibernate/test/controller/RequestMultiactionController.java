@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hibernate.test.api.RequestServiceInterface;
+import com.hibernate.test.api.UserServiceInterface;
 //import com.hibernate.test.api.RideServiceInterface;
 import com.hibernate.test.pojo.Request;
 import com.hibernate.test.pojo.User;
+import com.hibernate.test.pojo.UserType;
 
 @Controller
 @RequestMapping(value="/reqmc")
@@ -22,6 +24,8 @@ public class RequestMultiactionController {
 	
 	@Autowired
 	RequestServiceInterface requestServiceInterface;
+	@Autowired
+	UserServiceInterface userServiceInterface;
 	
 	@RequestMapping(value="test", method = RequestMethod.GET)
 	public ModelAndView test(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, String name){
@@ -61,12 +65,12 @@ public class RequestMultiactionController {
 	
 	@RequestMapping(value="submitNewRequest")
 	public ModelAndView newRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
-			Request request){
+			Request request, String userTypeId){
 		ModelAndView modelAndView = new ModelAndView();
 		//Request request = new Request();
 		request.setRequestTime(new Date());
-		User requestedBy = new User();
-		requestedBy.setUserId(1L);
+		User requestedBy = userServiceInterface.getUserByUserTypeAndId(UserType.FACEBOOK, userTypeId);
+		//requestedBy.setUserId(1L);
 		request.setRequestedBy(requestedBy);
 		
 		requestServiceInterface.createRequest(request);

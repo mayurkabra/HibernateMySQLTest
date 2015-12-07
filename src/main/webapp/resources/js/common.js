@@ -94,7 +94,7 @@ function testAPI() {
 			type: "POST",
 		    data : response,
 			success: function(result){
-				alert("submitted");
+				//alert("submitted");
 			},
 			error: function(result){
 				alert("error");
@@ -102,7 +102,7 @@ function testAPI() {
 		});
 		
 		document.getElementById('status').innerHTML =
-			'Logged in as, ' + response.name + '! <a href="javascript:logout();">Logout</a>';
+			'Logged in as, ' + response.first_name + '! <a href="javascript:logout();">Logout</a>';
 	});
 }
 

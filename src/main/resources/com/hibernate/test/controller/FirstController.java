@@ -37,7 +37,7 @@ public class FirstController {
 
 	@RequestMapping(value="fbToLP")
 	public void fbToLP(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, String first_name, String last_name, String email, String id){
-		User existingUser = userService.checkIfUserExistsByUserTypeAndId(UserType.FACEBOOK, id);
+		User existingUser = userService.getUserByUserTypeAndId(UserType.FACEBOOK, id);
 		
 		if(existingUser==null){
 			User user = new User();

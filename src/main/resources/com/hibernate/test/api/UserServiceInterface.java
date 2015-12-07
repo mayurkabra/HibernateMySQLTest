@@ -18,5 +18,5 @@ public interface UserServiceInterface {
 	//@param User object with updated user information
 	public void editProfile(User newUser);
 
-	public User checkIfUserExistsByUserTypeAndId(UserType facebook, String userTypeId);
+	public User getUserByUserTypeAndId(UserType facebook, String userTypeId);
 }

@@ -53,7 +53,7 @@ public class UserService implements UserServiceInterface {
 	}
 
 	@Override
-	public User checkIfUserExistsByUserTypeAndId(UserType userType, String userTypeId) {
+	public User getUserByUserTypeAndId(UserType userType, String userTypeId) {
 		return userDao.checkIfUserExistsByUserTypeAndId(userType, userTypeId);
 	}
 }
