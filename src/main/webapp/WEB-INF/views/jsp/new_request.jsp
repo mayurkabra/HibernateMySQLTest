@@ -4,7 +4,7 @@
 <jsp:include page="header.jsp"></jsp:include>
 <html>
 <body>
-<form action="javascript:submit_new_request();" method="post">
+<form id="new_request" action="javascript:submit_new_request();" method="post">
 <label>Pick Up : </label><input type="text" id="pickupPlace" name="pickupPlace"/><br/>
 <label>Destination : </label><input type="text" id="destination" name="destination"/><br/>
 <label>Pickup Time : </label><input type="text" id="startTime" name="startTime"/><br/>

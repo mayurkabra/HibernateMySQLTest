@@ -5,12 +5,17 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.hibernate.test.api.RequestDAOInterface;
 import com.hibernate.test.pojo.Request;
+import com.hibernate.test.pojo.RequestRideMapping;
+import com.hibernate.test.pojo.RequestRideStatus;
+import com.hibernate.test.pojo.Ride;
+import com.hibernate.test.pojo.User;
 import com.hibernate.test.util.HibernateUtil;
 
 @Repository
@@ -117,6 +122,73 @@ public class RequestDAOImpl extends CustomHibernateDaoSupport implements Request
 		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
 		Criteria criteria = session.createCriteria(Request.class);
 		return criteria.list();
+	}
+
+	@Override
+	public List<Request> getAllRequestsForAUser(User requestedBy) {
+		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+		Criteria criteria = session.createCriteria(Request.class);
+		criteria.add(Restrictions.eq("requestedBy", requestedBy));
+		return criteria.list();
+	}
+	
+	@Override
+	public void createNewRequestRideMapping(Request request, Ride ride){
+		if(!this.isMappingExistingForRequestRideMap(request, ride) &&
+				!this.isRideCompletelyFull(ride) &&
+				!this.isRideForRequestFixed(request)){
+			Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+			RequestRideMapping requestRideMapping = new RequestRideMapping();
+			requestRideMapping.setRequest(request);
+			requestRideMapping.setRide(ride);
+			requestRideMapping.setRequestRideStatus(RequestRideStatus.PENDING);
+			session.save(requestRideMapping);
+		}
+	}
+	
+	@Override
+	public boolean isMappingExistingForRequestRideMap(Request request, Ride ride){
+		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+		Criteria criteria = session.createCriteria(RequestRideMapping.class);
+		criteria.add(Restrictions.eq("request", request));
+		criteria.add(Restrictions.eq("ride", ride));
+		criteria.setProjection(Projections.rowCount());
+		int count = (int) criteria.uniqueResult();
+		if (count!=0){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean isRideForRequestFixed(Request request){
+		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+		Criteria criteria = session.createCriteria(RequestRideMapping.class);
+		criteria.add(Restrictions.eq("request", request));
+		criteria.add(Restrictions.eq("requestRideStatus", RequestRideStatus.ACCEPTED));
+		criteria.setProjection(Projections.rowCount());
+		int count = (int) criteria.uniqueResult();
+		if (count!=0){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean isRideCompletelyFull(Ride ride){
+		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+		Criteria criteria = session.createCriteria(RequestRideMapping.class);
+		criteria.add(Restrictions.eq("ride", ride));
+		criteria.add(Restrictions.eq("requestRideStatus", RequestRideStatus.ACCEPTED));
+		criteria.setProjection(Projections.rowCount());
+		int count = (int) criteria.uniqueResult();
+		if (ride.getMaxNoOfPassengers()>=count){
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 }

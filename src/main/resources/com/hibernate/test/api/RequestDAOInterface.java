@@ -3,6 +3,8 @@ package com.hibernate.test.api;
 import java.util.List;
 
 import com.hibernate.test.pojo.Request;
+import com.hibernate.test.pojo.Ride;
+import com.hibernate.test.pojo.User;
 
 public interface RequestDAOInterface {
 
@@ -11,4 +13,9 @@ public interface RequestDAOInterface {
 	public void deleteRequest(Request RequestToDelete);
 	public Request fetchRequest(long RequestId);
 	public List<Request> getAllRequests();
+	public List<Request> getAllRequestsForAUser(User requestedBy);
+	public void createNewRequestRideMapping(Request request, Ride ride);
+	public boolean isRideCompletelyFull(Ride ride);
+	public boolean isRideForRequestFixed(Request request);
+	public boolean isMappingExistingForRequestRideMap(Request request, Ride ride);
 }

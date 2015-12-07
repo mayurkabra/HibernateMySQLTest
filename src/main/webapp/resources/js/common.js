@@ -94,7 +94,11 @@ function testAPI() {
 			type: "POST",
 		    data : response,
 			success: function(result){
+				$('.userTypeId').val(response.id);
 				//alert("submitted");
+				/*if(typeof(postFilter!=undefined)){
+					window["postFilter"](response.id);
+				}*/
 			},
 			error: function(result){
 				alert("error");

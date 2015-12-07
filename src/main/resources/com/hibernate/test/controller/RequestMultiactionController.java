@@ -1,6 +1,7 @@
 package com.hibernate.test.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,7 +56,7 @@ public class RequestMultiactionController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="formNewRequest", method = RequestMethod.GET)
+	@RequestMapping(value="formNewRequest")
 	public ModelAndView formNewRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
 		ModelAndView modelAndView = new ModelAndView();
 		
@@ -76,6 +77,19 @@ public class RequestMultiactionController {
 		requestServiceInterface.createRequest(request);
 		
 		modelAndView.setViewName("test");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="showRequests")
+	public ModelAndView showRequests(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+			String userTypeId){
+		ModelAndView modelAndView = new ModelAndView();
+		User requestedBy = userServiceInterface.getUserByUserTypeAndId(UserType.FACEBOOK, userTypeId);
+		if (requestedBy!=null) {
+			List<Request> allRequestsForAUser = requestServiceInterface.getAllRequestsForAUser(requestedBy);
+			modelAndView.addObject("allRequests", allRequestsForAUser);
+		}
+		modelAndView.setViewName("show_requests");
 		return modelAndView;
 	}
 
