@@ -33,8 +33,8 @@ public interface RequestServiceInterface {
 	public boolean isRideCompletelyFull(Ride ride);
 	public boolean isRideForRequestFixed(Request request);
 	public boolean isMappingExistingForRequestRideMap(Request request, Ride ride);
+
 	public List<Request> getAllRequestsFilteredOnDateAndUser(Long rideId);
 	public Request fetchRequest(Long requestId);
 	public int createRequestRideMapping(Long[] selectedRequestIds, Long rideId);
-
 }

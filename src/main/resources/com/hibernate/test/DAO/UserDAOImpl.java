@@ -104,6 +104,7 @@ public class UserDAOImpl extends CustomHibernateDaoSupport implements UserDAOInt
 
 	}
 	
+
 	public User checkIfUserExistsByUserTypeAndId(UserType userType, String userTypeId){
 		try {
 			Criteria criteria = getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(User.class);

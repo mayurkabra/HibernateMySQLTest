@@ -14,9 +14,11 @@ public interface RequestDAOInterface {
 	public Request fetchRequest(long RequestId);
 	public List<Request> getAllRequests();
 	public List<Request> getAllRequestsForAUser(User requestedBy);
+
 	public boolean createNewRequestRideMapping(Request request, Ride ride);
 	public boolean isRideCompletelyFull(Ride ride);
 	public boolean isRideForRequestFixed(Request request);
 	public boolean isMappingExistingForRequestRideMap(Request request, Ride ride);
 	public List<Request> getAllRequestsFilteredOnDateAndUser(Ride ride);
+
 }

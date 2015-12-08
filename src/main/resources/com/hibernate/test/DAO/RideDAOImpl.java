@@ -41,6 +41,7 @@ public class RideDAOImpl extends CustomHibernateDaoSupport implements RideDAOInt
 			e.printStackTrace();
 		}
 		session.close();*/
+
 		try {
 			getHibernateTemplate().save(newRide);
 		} catch (DataAccessException e) {
@@ -57,6 +58,7 @@ public class RideDAOImpl extends CustomHibernateDaoSupport implements RideDAOInt
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -69,8 +71,8 @@ public class RideDAOImpl extends CustomHibernateDaoSupport implements RideDAOInt
 		catch(Exception e)
 		{
 			e.printStackTrace();
-		}
-		session.close();*/
+		}*/
+
 	}
 	
 	public List<Ride> fetchUserRides(User postedBy){
@@ -130,25 +132,8 @@ public class RideDAOImpl extends CustomHibernateDaoSupport implements RideDAOInt
 			session.close();
 			return null;
 		}*/
+
 	}
-	
-	/*public void deleteRide(Ride rideToDelete)
-	{
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		
-		try
-		{
-			session.delete(rideToDelete);
-			session.getTransaction().commit();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		session.close();
-	}*/
 	
 	public void deleteRide(long rideId)
 	{
@@ -197,26 +182,7 @@ public class RideDAOImpl extends CustomHibernateDaoSupport implements RideDAOInt
 			return null;
 		}*/
 	}
-	
 
-	
-	public void addRequestToRide(RequestRideMapping mappingObj){
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		
-		try
-		{
-			session.save(mappingObj);
-			session.getTransaction().commit();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		session.close();
-	}
-	
 	public List<Ride> getAllRidesFilteredOnDateAndUser(Request request) {
 		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
 		Criteria criteria = session.createCriteria(Ride.class);
@@ -224,8 +190,7 @@ public class RideDAOImpl extends CustomHibernateDaoSupport implements RideDAOInt
 		criteria.add(Restrictions.eq("startTime", request.getStartTime()));
 		criteria.add(Restrictions.ne("rideOwner", request.getRequestedBy()));
 		return criteria.list();
-	}
-	
+
 	public boolean createNewRideRequestMapping(Request request, Ride ride){
 		if(!requestDAO.isRideCompletelyFull(ride)){
 			Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();

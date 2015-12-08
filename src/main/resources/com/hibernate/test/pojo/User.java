@@ -49,6 +49,7 @@ public class User {
 	
 	@OneToMany(mappedBy = "rideOwner")
 	private List<Ride> ownedRides;
+
 	
 	@OneToMany(mappedBy = "pendingWith")
 	private List<RequestRideMapping> pendingReply;

@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 import com.hibernate.test.DAO.RideDAOImpl;
 import com.hibernate.test.api.RequestDAOInterface;
 import com.hibernate.test.pojo.Request;
+<<<<<<< HEAD
 import com.hibernate.test.pojo.RequestRideMapping;
 import com.hibernate.test.pojo.RequestRideStatus;
+=======
+>>>>>>> refs/remotes/origin/master
 import com.hibernate.test.pojo.Ride;
 import com.hibernate.test.pojo.User;
 
@@ -45,6 +48,35 @@ public class RequestServiceImpl implements com.hibernate.test.api.RequestService
 	
 	public Request fetchRequest(Long requestId) {
 		return requestDAO.fetchRequest(requestId);
+		
+	@Override
+	public List<Request> getAllRequests() {
+		return requestDAO.getAllRequests();
+	}
+	
+	@Override
+	public List<Request> getAllRequestsForAUser(User requestedBy){
+		return requestDAO.getAllRequestsForAUser(requestedBy);
+	}
+	
+	@Override
+	public void createNewRequestRideMapping(Request request, Ride ride){
+		requestDAO.createNewRequestRideMapping(request, ride);
+	}
+
+	@Override
+	public boolean isRideCompletelyFull(Ride ride) {
+		return requestDAO.isRideCompletelyFull(ride);
+	}
+
+	@Override
+	public boolean isRideForRequestFixed(Request request) {
+		return requestDAO.isRideForRequestFixed(request);
+	}
+
+	@Override
+	public boolean isMappingExistingForRequestRideMap(Request request, Ride ride) {
+		return requestDAO.isMappingExistingForRequestRideMap(request, ride);
 	}
 
 	public List<Request> getAllRequests() {
