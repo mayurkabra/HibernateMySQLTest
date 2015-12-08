@@ -1,9 +1,6 @@
 package com.hibernate.test.controller;
 
-<<<<<<< HEAD
 import java.io.IOException;
-=======
->>>>>>> refs/remotes/origin/master
 import java.util.Date;
 import java.util.List;
 

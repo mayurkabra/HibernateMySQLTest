@@ -12,14 +12,13 @@ import com.hibernate.test.pojo.Request;
 import com.hibernate.test.pojo.RequestRideMapping;
 import com.hibernate.test.pojo.RequestRideStatus;
 import com.hibernate.test.pojo.Ride;
-import com.hibernate.test.pojo.Student;
 import com.hibernate.test.pojo.User;
 import com.hibernate.test.util.HibernateUtil;  
 
 
 public class DemoFirst {  
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();  
 		Session session = sessionFactory.openSession();  
@@ -135,5 +134,5 @@ public class DemoFirst {
 		}
 
 		session.close();
-	}
+	}*/
 }  

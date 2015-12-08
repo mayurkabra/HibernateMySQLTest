@@ -190,7 +190,8 @@ public class RideDAOImpl extends CustomHibernateDaoSupport implements RideDAOInt
 		criteria.add(Restrictions.eq("startTime", request.getStartTime()));
 		criteria.add(Restrictions.ne("rideOwner", request.getRequestedBy()));
 		return criteria.list();
-
+	}
+	
 	public boolean createNewRideRequestMapping(Request request, Ride ride){
 		if(!requestDAO.isRideCompletelyFull(ride)){
 			Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
@@ -205,5 +206,10 @@ public class RideDAOImpl extends CustomHibernateDaoSupport implements RideDAOInt
 		else{
 			return false;
 		}
+	}
+
+	public void addRequestToRide(RequestRideMapping mappingObj) {
+		// TODO Auto-generated method stub
+		
 	}
 }
