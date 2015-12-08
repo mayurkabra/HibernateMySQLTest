@@ -23,9 +23,14 @@ public interface RideServiceInterface {
 	//@param identifier of the ride
 	public void deleteRide(long rideId);
 	
-	public List<Ride> getUserRides(int userId);
+	public List<Ride> getUserRides(User user);
 	
 	public Ride fetchRide(long rideId);
 	
 	public void addRequestToRide(Request request, Ride ride);
+
+	public List<Ride> getAllRidesFilteredOnDateAndUser(Long requestId);
+
+	public int createRideRequestMapping(Long[] selectedRideIds, Long requestId);
+
 }

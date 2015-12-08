@@ -67,101 +67,81 @@ public class Ride {
 		this.rideId = rideId;
 	}
 
-
 	public String getStartPoint() {
 		return startPoint;
 	}
-
 
 	public void setStartPoint(String startPoint) {
 		this.startPoint = startPoint;
 	}
 
-
 	public String getDestination() {
 		return destination;
 	}
-
 
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
 
-
 	public boolean isPickupOtherThanStartProvided() {
 		return isPickupOtherThanStartProvided;
 	}
-
 
 	public void setPickupOtherThanStartProvided(boolean isPickupOtherThanStartProvided) {
 		this.isPickupOtherThanStartProvided = isPickupOtherThanStartProvided;
 	}
 
-
 	public int getMaxNoOfPassengers() {
 		return maxNoOfPassengers;
 	}
-
 
 	public void setMaxNoOfPassengers(int maxNoOfPassengers) {
 		this.maxNoOfPassengers = maxNoOfPassengers;
 	}
 
-
 	public Date getStartTime() {
 		return startTime;
 	}
-
 
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 
-
 	public Date getRidePostedOn() {
 		return ridePostedOn;
 	}
-
 
 	public void setRidePostedOn(Date ridePostedOn) {
 		this.ridePostedOn = ridePostedOn;
 	}
 
-
 	public float getPricePerUser() {
 		return pricePerUser;
 	}
-
 
 	public void setPricePerUser(float pricePerUser) {
 		this.pricePerUser = pricePerUser;
 	}
 
-
 	public boolean isPriceNegotiable() {
 		return isPriceNegotiable;
 	}
-
 
 	public void setPriceNegotiable(boolean isPriceNegotiable) {
 		this.isPriceNegotiable = isPriceNegotiable;
 	}
 
-
 	public String getComments() {
 		return comments;
 	}
-
 
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
 
-
 	public User getRideOwner() {
 		return rideOwner;
 	}
-
 
 	public void setRideOwner(User rideOwner) {
 		this.rideOwner = rideOwner;
@@ -184,6 +164,6 @@ public class Ride {
 				+ ", isPriceNegotiable=" + isPriceNegotiable + ", comments=" + comments + ", rideOwner=" + rideOwner
 				+ "]";
 	}
-	
+
 	
 }

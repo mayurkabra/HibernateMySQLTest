@@ -1,6 +1,7 @@
 package com.hibernate.test.api;
 
 import com.hibernate.test.pojo.User;
+import com.hibernate.test.pojo.UserType;
 
 public interface UserServiceInterface {
 
@@ -16,4 +17,6 @@ public interface UserServiceInterface {
 	//This method allows you to edit information for an existing user
 	//@param User object with updated user information
 	public void editProfile(User newUser);
+
+	public User getUserByUserTypeAndId(UserType facebook, String userTypeId);
 }

@@ -31,6 +31,10 @@ public class RequestRideMapping {
 	@Column(name="request_ride_status")
 	@Enumerated(EnumType.STRING)
 	private RequestRideStatus requestRideStatus;
+
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User pendingWith;
 	
 	public Request getRequests() {
 		return request;
@@ -59,7 +63,11 @@ public class RequestRideMapping {
 	public void setRrmId(long rrmId) {
 		this.rrmId = rrmId;
 	}
+	public User getPendingWith() {
+		return pendingWith;
+	}
+	public void setPendingWith(User pendingWith) {
+		this.pendingWith = pendingWith;
+	}
 	
-	
-
 }

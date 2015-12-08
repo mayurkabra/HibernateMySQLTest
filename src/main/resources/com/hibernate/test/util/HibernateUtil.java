@@ -8,7 +8,6 @@ import org.hibernate.service.ServiceRegistry;
 import com.hibernate.test.pojo.Request;
 import com.hibernate.test.pojo.RequestRideMapping;
 import com.hibernate.test.pojo.Ride;
-import com.hibernate.test.pojo.Student;  
 import com.hibernate.test.pojo.User;  
 
 public class HibernateUtil {  
@@ -19,7 +18,7 @@ public class HibernateUtil {
 		Configuration configuration=new Configuration().configure(); // configures settings from hibernate.cfg.xml
 
 		StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
-		configuration.addAnnotatedClass(Student.class);
+		//configuration.addAnnotatedClass(Student.class);
 		configuration.addAnnotatedClass(User.class);
 		configuration.addAnnotatedClass(Ride.class);
 		configuration.addAnnotatedClass(Request.class);

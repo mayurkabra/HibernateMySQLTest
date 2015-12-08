@@ -2,9 +2,12 @@ package com.hibernate.test.Services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hibernate.test.api.RequestDAOInterface;
 import com.hibernate.test.api.RideDAOInterface;
 import com.hibernate.test.pojo.Request;
 import com.hibernate.test.pojo.RequestRideMapping;
@@ -13,10 +16,13 @@ import com.hibernate.test.pojo.Ride;
 import com.hibernate.test.pojo.User;
 
 @Service
+@Transactional
 public class RideServiceImpl implements com.hibernate.test.api.RideServiceInterface {
 	
 	@Autowired
 	RideDAOInterface rideDAO;
+	@Autowired
+	RequestDAOInterface requestDAO;
 
 	public void createRide(Ride newRide) {
 		rideDAO.createRide(newRide);	
@@ -33,8 +39,8 @@ public class RideServiceImpl implements com.hibernate.test.api.RideServiceInterf
 		//}
 	}
 
-	public List<Ride> getUserRides(int userId) {
-		return rideDAO.fetchUserRides(userId);	
+	public List<Ride> getUserRides(User user) {
+		return rideDAO.fetchUserRides(user);	
 	}
 	
 	public Ride fetchRide(long rideId) {
@@ -47,5 +53,30 @@ public class RideServiceImpl implements com.hibernate.test.api.RideServiceInterf
 		mappingObj.setRide(ride);
 		mappingObj.setRequestRideStatus(RequestRideStatus.PENDING);
 		rideDAO.addRequestToRide(mappingObj);
+	}
+	
+	public List<Ride> getAllRidesFilteredOnDateAndUser(Long requestId){
+		Request request = requestDAO.fetchRequest(requestId);
+		return rideDAO.getAllRidesFilteredOnDateAndUser(request);
+	}
+	
+	public int createRideRequestMapping(Long[] selectedRideIds, Long requestId){
+		int countOfMapping=0;
+		Request request = requestDAO.fetchRequest(requestId);
+		for(int i=0; i<selectedRideIds.length ;i++){
+			Ride ride = fetchRide(selectedRideIds[i]);
+			if(rideDAO.createNewRideRequestMapping(request, ride)){
+				countOfMapping++;
+			}
+		}
+		if(countOfMapping == selectedRideIds.length){
+			return 1;
+		}
+		else if((countOfMapping < selectedRideIds.length) && (countOfMapping > 0)){
+			return 0;
+		}
+		else {
+			return -1;
+		}
 	}
 }
