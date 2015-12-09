@@ -22,6 +22,7 @@
          });
       </script>
 <body>
+	<div class="main_container">
 	<div id="dialogForRequests"></div>
 		<table>
 		<tr>
@@ -74,7 +75,9 @@ for(Ride ride : userRideList){
 			<!-- <input type="submit" value="Edit Ride"> -->
 		</form>
 		<input id="openDialog" type="button" onclick="showAllRequestsFilteredOnDate(<%=ride.getRideId()%>);" value="View All Requests"></input>
-			<!--  <input type="button" onclick="deleteUsersRide(<%=ride.getRideId()%>);" value="Delete Ride"></input> 
+		<input type="button" onclick="respondToRequest(28,11,1);" value="Accept Request"></input> 
+		<input type="button" onclick="respondToRequest(28,11, 2);" value="Reject Request"></input> 	
+		<!--  <input type="button" onclick="deleteUsersRide(<%=ride.getRideId()%>);" value="Delete Ride"></input> 
 			<input type="button" onclick="viewRideRequests(<%=ride.getRideId()%>);" value="View Requests"></input> 
 			<input type="button" onclick="viewAndPostComments(<%=ride.getRideId()%>);" value="View & Post Comments"></input> 			
 		--></td>
@@ -88,6 +91,8 @@ for(Ride ride : userRideList){
 	}
 } %>
 </table>
+<input type="hidden" id="pageType" value="rides"/>
+</div>
 </body>
 <script src="../resources/js/show_ride.js"></script>
 <script src="../resources/js/show_request.js"></script>

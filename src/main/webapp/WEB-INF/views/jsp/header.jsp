@@ -5,8 +5,8 @@
 <html>
 <head>
 <title>Lets Pool</title>
-<link href="../resources/css/jquery.datetimepicker.css" type="text/css"
-	rel="stylesheet">
+<link href="../resources/css/jquery.datetimepicker.css" type="text/css" rel="stylesheet">
+<link href="../resources/css/common.css" type="text/css" rel="stylesheet">
 <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -23,10 +23,11 @@
 	</div>
 
 	<div id="status"></div>
+	<div class="main_container">
 	<table>
 		<tr>
 			<th>
-				<form method="post" action="../reqmc/showRequests">
+				<form id="showRequests" method="post" action="../reqmc/showRequests">
 					<input type="hidden" id="userTypeId" name="userTypeId"
 						class="userTypeId"> <input type="submit" value="Requests">
 				</form>
@@ -37,7 +38,7 @@
 				</form>
 			</th>
 			<th>
-				<form method="post" action="../rmc/showUserRides">
+				<form id="showRides" method="post" action="../rmc/showUserRides">
 					<input type="hidden" id="userTypeId" name="userTypeId"
 						class="userTypeId"> <input type="submit" value="My Rides">
 				</form>
@@ -46,5 +47,6 @@
 				<form method="post" action="../rmc/formNewRide">
 					<input type="submit" value="New Ride">
 	</form></table>
+	</div>
 </body>
 </html>

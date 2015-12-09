@@ -16,12 +16,14 @@ function statusChangeCallback(response) {
 	} else if (response.status === 'not_authorized') {
 		// The person is logged into Facebook, but not your app.
 		$('#fb_login_button').show();
+		$('.main_container').hide();
 		document.getElementById('status').innerHTML = 'Please log ' +
 		'into this app.';
 	} else {
 		// The person is not logged into Facebook, so we're not sure if
 		// they are logged into this app or not.
 		$('#fb_login_button').show();
+		$('.main_container').hide();
 		document.getElementById('status').innerHTML = 'Please log ' +
 		'into Facebook.';
 	}
@@ -86,6 +88,7 @@ function testAPI() {
 function testAPI() {
 	console.log('Welcome!  Fetching your information.... ');
 	$('#fb_login_button').hide();
+	$('.main_container').show();
 	FB.api('/me?fields=first_name,last_name,email', function(response) {
 		//console.log('Successful login for: ' + response.name);
 		
@@ -106,7 +109,7 @@ function testAPI() {
 		});
 		
 		document.getElementById('status').innerHTML =
-			'Logged in as, ' + response.first_name + '! <a href="javascript:logout();">Logout</a>';
+			'Logged in as ' + response.first_name + '. <a href="javascript:logout();">Logout</a>';
 	});
 }
 
@@ -126,3 +129,24 @@ $(document).ready(function() {
 		$('#loginbutton,#feedbutton').removeAttr('disabled');
 	});
 });
+
+function respondToRequest(rideId, requestId, actionType){
+	var pageType = $("#pageType").val();
+	var param = {rideId:rideId, requestId:requestId, actionType:actionType};
+	$.ajax({
+		url: "../cmc/respondToRequest",
+		type: "POST",
+		data : param,
+		success: function(data){
+			if(pageType == "request"){
+				$("#showRequests").submit();
+			}
+			else{
+				$("#showRides").submit();
+			}
+		},
+		error: function(result){
+			alert("error");
+		}
+	});	
+}

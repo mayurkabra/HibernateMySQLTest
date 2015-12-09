@@ -23,6 +23,8 @@
          });
       </script>
 <body>
+
+	<div class="main_container">
 		<div id="dialogForRides"></div>
 		<table>
 		<tr>
@@ -33,12 +35,14 @@
 		</tr>
 <%ArrayList<Request> allRequests = (ArrayList<Request>)request.getAttribute("allRequests");
 for(Request requests : allRequests){
-	%><tr>
+	%><tbody><tr>
 	<td align="left"><%=requests.getPickupPlace()%> </td>
 	<td align="left"> <%=requests.getDestination()%> </td>
 	<td align="center"> <%=requests.getStartTime()%></td> 
 	<td>
 		<input type="button" onclick="showAllRidesFilteredOnDate(<%=requests.getRequest_id()%>);" value="View All Rides"></input>
+		<input type="button" onclick="respondToRequest(28,11, 1);" value="Accept Request"></input> 
+		<input type="button" onclick="respondToRequest(28,11, 2);" value="Reject Request"></input>
 	</td>
 	</tr><%
 	if(requests.getRequestRideMappings()!=null && requests.getRequestRideMappings().size()>0){
@@ -51,9 +55,10 @@ for(Request requests : allRequests){
 			<%
 		}
 	}
-} %>
+%></tbody><%} %>
 </table>
-
+<input type="hidden" id="pageType" value="request"/>
+</div>
 </body>
 <script src="../resources/js/show_ride.js"></script>
 </html>
