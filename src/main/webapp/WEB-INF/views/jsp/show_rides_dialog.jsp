@@ -15,6 +15,7 @@ Long requestId = Long.parseLong((String)request.getAttribute("requestId"));
 %>
 <body>
 		<table>
+		<%if(rideList.size()>0){%>
 		<tr>
 		<th></th>
 		<th>Source</th>
@@ -61,9 +62,12 @@ Long requestId = Long.parseLong((String)request.getAttribute("requestId"));
 	}
 %> 
 		<td align="center"><%=ride.getRideOwner().getFirstName()+" "+ride.getRideOwner()
-		.getLastName()%></td>
+		.getLastName()%></td></tr>
 <%
 } %>
+		<%}else{
+			%><tr><td align="center">---No matching rides. Please try again later.---</td></tr><%
+		} %>
 	</table>
 	<input type="button" value="Add Rides" onclick="mapRideToRequests(<%= requestId%>);">
 	<input type="button" value="Cancel" onclick="closeDialog();">	

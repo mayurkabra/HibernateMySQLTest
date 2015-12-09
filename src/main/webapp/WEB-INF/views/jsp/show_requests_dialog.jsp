@@ -15,6 +15,7 @@ Long rideId = Long.parseLong((String)request.getAttribute("rideId"));
 %>
 <body>
 		<table>
+		<%if(requestList.size()>0){%>
 		<tr>
 		<th></th>
 		<th>Pickup</th>
@@ -28,6 +29,9 @@ Long rideId = Long.parseLong((String)request.getAttribute("rideId"));
 		<td align="center"> <%=requests.getDestination()%> </td>
 		<td align="center"> <%=requests.getRequestTime()%></td> </tr><%
 } %>
+		<%}else{ %>
+		<tr><td>---No matching requests. Please try again later.---</td></tr>
+		<%} %>
 	</table>
 	<input type="button" value="Add Requests" onclick="mapRequestsToRide(<%= rideId%>);">
 	<input type="button" value="Cancel" onclick="closeDialog();">	

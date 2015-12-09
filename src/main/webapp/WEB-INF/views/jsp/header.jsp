@@ -8,12 +8,12 @@
 <link href="../resources/css/jquery.datetimepicker.css" type="text/css"
 	rel="stylesheet">
 <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-<link href="../resources/css/jquery.alerts.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script src="../resources/js/jquery.datetimepicker.full.js"></script>
 <script src="../resources/js/jquery.alerts.js"></script>
 <script src="../resources/js/common.js"></script>
+<script src="../resources/js/jquery.blockUI.js"></script>
 </head>
 <body>
 
@@ -36,10 +36,6 @@
 					<input type="submit" value="New Request">
 				</form>
 			</th>
-		</tr>
-	</table>
-	<table>
-		<tr>
 			<th>
 				<form method="post" action="../rmc/showUserRides">
 					<input type="hidden" id="userTypeId" name="userTypeId"
