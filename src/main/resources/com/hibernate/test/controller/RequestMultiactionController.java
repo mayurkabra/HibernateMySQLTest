@@ -90,6 +90,7 @@ public class RequestMultiactionController {
 			List<Request> allRequestsForAUser = requestServiceInterface.getAllRequestsForAUser(requestedBy);
 			modelAndView.addObject("allRequests", allRequestsForAUser);
 		}
+		modelAndView.addObject("userId", requestedBy.getUserId());
 		modelAndView.setViewName("show_requests");
 		return modelAndView;
 	}

@@ -1,4 +1,5 @@
 <%@page import="com.hibernate.test.pojo.RequestRideMapping"%>
+<%@page import="com.hibernate.test.pojo.RequestRideStatus"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.hibernate.test.pojo.Request"%>
@@ -22,7 +23,12 @@
             });*/
          });
       </script>
+<%
+Long currentUserId = (Long)request.getAttribute("userId");
+%>
 <body>
+
+	<div class="main_container">
 		<div id="dialogForRides"></div>
 		<table>
 		<tr>
@@ -33,14 +39,12 @@
 		</tr>
 <%ArrayList<Request> allRequests = (ArrayList<Request>)request.getAttribute("allRequests");
 for(Request requests : allRequests){
-	%><tr>
+	%><tbody><tr>
 	<td align="left"><%=requests.getPickupPlace()%> </td>
-	<td align="left"> <%=requests.getDestination()%> </td>
-	<td align="center"> <%=requests.getStartTime()%></td> 
+	<td align="left"><%=requests.getDestination()%> </td>
+	<td align="center"><%=requests.getStartTime()%></td> 
 	<td>
 		<input type="button" onclick="showAllRidesFilteredOnDate(<%=requests.getRequest_id()%>);" value="View All Rides"></input>
-		<input type="button" onclick="respondToRequest(28,11, 1);" value="Accept Request"></input> 
-		<input type="button" onclick="respondToRequest(28,11, 2);" value="Reject Request"></input>
 	</td>
 	</tr><%
 	if(requests.getRequestRideMappings()!=null && requests.getRequestRideMappings().size()>0){
@@ -49,13 +53,33 @@ for(Request requests : allRequests){
 			%>
 			<tr>
 				<td colspan="3">&nbsp &nbsp <i><b><%=requestRideMapping.getRide().getRideOwner().getFirstName()%></b>(<b><%=requestRideMapping.getRide().getRideOwner().getEmailAddress() %></b>) will leave for <b><%=requestRideMapping.getRide().getDestination() %></b> from <b><%=requestRideMapping.getRide().getStartPoint() %></b> at <b><%=requestRideMapping.getRide().getStartTime() %></b></i></td>
+				<td>Status: <%= requestRideMapping.getRequestRideStatus()%></td>
+				<td>
+				<%
+				if(currentUserId == requestRideMapping.getPendingWith().getUserId()){
+					if(requestRideMapping.getRequestRideStatus().equals(RequestRideStatus.PENDING)){	
+				%>
+						<input type="button" onclick="respondToRequest(<%=requestRideMapping.getRide().getRideId() %>,<%=requests.getRequest_id() %>,1);" value="Accept Request"></input> 
+						<input type="button" onclick="respondToRequest(<%=requestRideMapping.getRide().getRideId() %>,<%=requests.getRequest_id() %>, 2);" value="Reject Request"></input> 		
+				<%
+					}
+					else{
+				%>
+						<input type="button" value="Accept Request" disabled></input> 
+						<input type="button" value="Reject Request" disabled></input> 		
+				<%
+					}
+				}
+				%>
+				</td>
 			</tr>
 			<%
 		}
 	}
-} %>
+%></tbody><%} %>
 </table>
 <input type="hidden" id="pageType" value="request"/>
+</div>
 </body>
 <script src="../resources/js/show_ride.js"></script>
 </html>

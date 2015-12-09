@@ -71,6 +71,7 @@ public class RideMultiactionController {
 			List<Ride> userRideList = rideServiceInterface.getUserRides(postedBy);
 			modelAndView.addObject("userRideList", userRideList);
 		}
+		modelAndView.addObject("userId", postedBy.getUserId());
 		modelAndView.setViewName("show_rides");
 		return modelAndView;
 	}

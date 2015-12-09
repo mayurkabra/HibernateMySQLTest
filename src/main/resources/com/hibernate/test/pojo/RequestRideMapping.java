@@ -35,39 +35,44 @@ public class RequestRideMapping {
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User pendingWith;
-	
-	public Request getRequests() {
-		return request;
-	}
-	public void setRequest(Request request) {
-		this.request = request;
-	}
-	public Ride getRide() {
-		return ride;
-	}
-	public void setRide(Ride ride) {
-		this.ride = ride;
-	}
-	public RequestRideStatus getRequestRideStatus() {
-		return requestRideStatus;
-	}
-	public void setRequestRideStatus(RequestRideStatus requestRideStatus) {
-		this.requestRideStatus = requestRideStatus;
-	}
-	public Request getRequest() {
-		return request;
-	}
+
 	public long getRrmId() {
 		return rrmId;
 	}
+
 	public void setRrmId(long rrmId) {
 		this.rrmId = rrmId;
 	}
+
+	public Request getRequest() {
+		return request;
+	}
+
+	public void setRequest(Request request) {
+		this.request = request;
+	}
+
+	public Ride getRide() {
+		return ride;
+	}
+
+	public void setRide(Ride ride) {
+		this.ride = ride;
+	}
+
+	public RequestRideStatus getRequestRideStatus() {
+		return requestRideStatus;
+	}
+
+	public void setRequestRideStatus(RequestRideStatus requestRideStatus) {
+		this.requestRideStatus = requestRideStatus;
+	}
+
 	public User getPendingWith() {
 		return pendingWith;
 	}
+
 	public void setPendingWith(User pendingWith) {
 		this.pendingWith = pendingWith;
-	}
-	
+	}	
 }

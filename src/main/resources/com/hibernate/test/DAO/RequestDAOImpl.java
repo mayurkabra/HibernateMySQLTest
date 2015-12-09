@@ -1,5 +1,6 @@
 package com.hibernate.test.DAO;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -8,10 +9,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.hibernate.test.api.RequestDAOInterface;
+import com.hibernate.test.api.RideDAOInterface;
 import com.hibernate.test.pojo.Request;
 import com.hibernate.test.pojo.RequestRideMapping;
 import com.hibernate.test.pojo.RequestRideStatus;
@@ -22,6 +25,8 @@ import com.hibernate.test.util.HibernateUtil;
 
 @Repository
 public class RequestDAOImpl extends CustomHibernateDaoSupport implements RequestDAOInterface {
+	@Autowired
+	RideDAOInterface rideDAO;
 	
 	public void createRequest(Request newRequest)
 	{
@@ -125,11 +130,7 @@ public class RequestDAOImpl extends CustomHibernateDaoSupport implements Request
 		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
 		Criteria criteria = session.createCriteria(Request.class);
 		criteria.add(Restrictions.eq("requestedBy", requestedBy));
-		//criteria.createAlias("requestRideMappings", "rrm");
-		//criteria.createAlias("rrm.ride", "r");
-		//criteria.setFetchMode("r.startPoint", FetchMode.DEFAULT);
-		/*criteria.setFetchMode("requestRideMappings", FetchMode.JOIN);
-		criteria.setFetchMode("rrm.ride", FetchMode.JOIN);*/
+		criteria.add(Restrictions.ge("startTime", new Date()));
 		List<Request> list = criteria.list();
 		for(Request request : list){
 			for(RequestRideMapping requestRideMapping : request.getRequestRideMappings()){
@@ -207,7 +208,7 @@ public class RequestDAOImpl extends CustomHibernateDaoSupport implements Request
 		criteria.add(Restrictions.eq("requestRideStatus", RequestRideStatus.ACCEPTED));
 		criteria.setProjection(Projections.rowCount());
 		long count = (Long) criteria.uniqueResult();
-		if (ride.getMaxNoOfPassengers()>=count){
+		if (ride.getMaxNoOfPassengers()>count){
 			return false;
 		} else {
 			return true;
@@ -244,24 +245,41 @@ public class RequestDAOImpl extends CustomHibernateDaoSupport implements Request
 	}
 	
 	public void respondToRequest(Long rideId, Long requestId, int actionType){
+		Ride ride = rideDAO.fetchRide(rideId);
+		if(isRideCompletelyFull(ride)){
+			changeStatusOfAllRequestsForRide(ride);
+		}
+		else{
+			Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+			Criteria criteria = session.createCriteria(RequestRideMapping.class);
+			criteria.createAlias("request", "request");
+			criteria.add(Restrictions.eq("request.request_id", requestId));
+			criteria.createAlias("ride", "ride");
+			criteria.add(Restrictions.eq("ride.rideId", rideId));
+			List<RequestRideMapping> reqRideList = criteria.list();
+			if(!reqRideList.isEmpty()){
+				if(actionType == 1){
+					reqRideList.get(0).setRequestRideStatus(RequestRideStatus.ACCEPTED);
+						
+				}
+				else{
+					reqRideList.get(0).setRequestRideStatus(RequestRideStatus.REJECTED);
+				}
+				editRequestRideMapping(reqRideList.get(0));
+			}
+		}
+	}
+	
+	public void changeStatusOfAllRequestsForRide(Ride ride){
 		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
 		Criteria criteria = session.createCriteria(RequestRideMapping.class);
-		criteria.createAlias("request", "request");
-		criteria.add(Restrictions.eq("request.request_id", requestId));
-		criteria.createAlias("ride", "ride");
-		criteria.add(Restrictions.eq("ride.rideId", rideId));
-		
+		criteria.add(Restrictions.eq("ride", ride));
+		criteria.add(Restrictions.ne("requestRideStatus", RequestRideStatus.ACCEPTED));
 		List<RequestRideMapping> reqRideList = criteria.list();
 		
-		if(!reqRideList.isEmpty()){
-			if(actionType == 1){
-				reqRideList.get(0).setRequestRideStatus(RequestRideStatus.ACCEPTED);
-				
-			}
-			else{
-				reqRideList.get(0).setRequestRideStatus(RequestRideStatus.REJECTED);
-			}
-			editRequestRideMapping(reqRideList.get(0));
+		for(RequestRideMapping mapping : reqRideList){
+			mapping.setRequestRideStatus(RequestRideStatus.FULL_CAPACITY);
+			editRequestRideMapping(mapping);
 		}
 	}
 }

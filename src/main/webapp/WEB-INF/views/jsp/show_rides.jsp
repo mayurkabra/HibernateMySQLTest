@@ -1,4 +1,5 @@
 <%@page import="com.hibernate.test.pojo.RequestRideMapping"%>
+<%@page import="com.hibernate.test.pojo.RequestRideStatus"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.hibernate.test.pojo.Ride"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -21,7 +22,11 @@
             });*/
          });
       </script>
+<%
+Long currentUserId = (Long)request.getAttribute("userId");
+%>
 <body>
+	<div class="main_container">
 	<div id="dialogForRequests"></div>
 		<table>
 		<tr>
@@ -74,8 +79,6 @@ for(Ride ride : userRideList){
 			<!-- <input type="submit" value="Edit Ride"> -->
 		</form>
 		<input id="openDialog" type="button" onclick="showAllRequestsFilteredOnDate(<%=ride.getRideId()%>);" value="View All Requests"></input>
-		<input type="button" onclick="respondToRequest(28,11,1);" value="Accept Request"></input> 
-		<input type="button" onclick="respondToRequest(28,11, 2);" value="Reject Request"></input> 	
 		<!--  <input type="button" onclick="deleteUsersRide(<%=ride.getRideId()%>);" value="Delete Ride"></input> 
 			<input type="button" onclick="viewRideRequests(<%=ride.getRideId()%>);" value="View Requests"></input> 
 			<input type="button" onclick="viewAndPostComments(<%=ride.getRideId()%>);" value="View & Post Comments"></input> 			
@@ -84,12 +87,34 @@ for(Ride ride : userRideList){
 	if(ride.getRequestRideMappings()!=null && ride.getRequestRideMappings().size()>0){
 		for(RequestRideMapping requestRideMapping : ride.getRequestRideMappings()){
 			%>
-			<tr><td colspan="6"><i>&nbsp &nbsp <b><%=requestRideMapping.getRequest().getRequestedBy().getFirstName() %>(<%=requestRideMapping.getRequest().getRequestedBy().getEmailAddress() %>)</b> needs to be picked up from <b><%=requestRideMapping.getRequest().getPickupPlace() %></b> for <b><%=requestRideMapping.getRequest().getDestination() %></b> at <b><%=requestRideMapping.getRequest().getStartTime() %></b></i></td></tr>
+			<tr>
+				<td colspan="6"><i>&nbsp &nbsp <b><%=requestRideMapping.getRequest().getRequestedBy().getFirstName() %>(<%=requestRideMapping.getRequest().getRequestedBy().getEmailAddress() %>)</b> needs to be picked up from <b><%=requestRideMapping.getRequest().getPickupPlace() %></b> for <b><%=requestRideMapping.getRequest().getDestination() %></b> at <b><%=requestRideMapping.getRequest().getStartTime() %></b></i></td>
+				<td>Status: <%= requestRideMapping.getRequestRideStatus()%></td>
+				<td>
+				<%
+				if(currentUserId == requestRideMapping.getPendingWith().getUserId()){
+					if(requestRideMapping.getRequestRideStatus().equals(RequestRideStatus.PENDING)){	
+				%>
+					<input type="button" onclick="respondToRequest(<%=ride.getRideId() %>,<%=requestRideMapping.getRequest().getRequest_id() %>,1);" value="Accept Request"></input> 
+					<input type="button" onclick="respondToRequest(<%=ride.getRideId() %>,<%=requestRideMapping.getRequest().getRequest_id() %>, 2);" value="Reject Request"></input> 	
+				<%
+					}
+					else{
+				%>
+					<input type="button" value="Accept Request" disabled></input> 
+					<input type="button" value="Reject Request" disabled></input> 	
+				<%
+					}
+				}
+				%>
+				</td>
+			</tr>
 			<%
 		}
 	}
 } %>
 </table>
+</div>
 <input type="hidden" id="pageType" value="rides"/>
 </body>
 <script src="../resources/js/show_ride.js"></script>

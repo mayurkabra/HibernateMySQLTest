@@ -1,5 +1,6 @@
 package com.hibernate.test.DAO;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -80,6 +81,7 @@ public class RideDAOImpl extends CustomHibernateDaoSupport implements RideDAOInt
 		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
 		Criteria criteria = session.createCriteria(Ride.class);
 		criteria.add(Restrictions.eq("rideOwner", postedBy));
+		criteria.add(Restrictions.ge("startTime", new Date()));
 		List<Ride> list = criteria.list();
 		for(Ride ride : list){
 			for(RequestRideMapping requestRideMapping : ride.getRequestRideMappings()){
