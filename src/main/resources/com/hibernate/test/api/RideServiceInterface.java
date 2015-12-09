@@ -32,5 +32,4 @@ public interface RideServiceInterface {
 	public List<Ride> getAllRidesFilteredOnDateAndUser(Long requestId);
 
 	public int createRideRequestMapping(Long[] selectedRideIds, Long requestId);
-
 }

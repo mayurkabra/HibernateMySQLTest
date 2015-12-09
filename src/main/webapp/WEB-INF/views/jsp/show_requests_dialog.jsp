@@ -27,7 +27,7 @@ Long rideId = Long.parseLong((String)request.getAttribute("rideId"));
 		<td align="center"><input type="checkbox" id="request_<%=requestList.indexOf(requests) %>" name="requestCheckbox" value="<%=requests.getRequest_id()%>"/></td>
 		<td align="center"><%=requests.getPickupPlace()%> </td>
 		<td align="center"> <%=requests.getDestination()%> </td>
-		<td align="center"> <%=requests.getRequestTime()%></td> </tr><%
+		<td align="center"> <%=requests.getStartTime()%></td> </tr><%
 } %>
 		<%}else{ %>
 		<tr><td>---No matching requests. Please try again later.---</td></tr>

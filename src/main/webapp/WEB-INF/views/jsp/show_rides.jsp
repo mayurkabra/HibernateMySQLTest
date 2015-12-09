@@ -91,8 +91,8 @@ for(Ride ride : userRideList){
 	}
 } %>
 </table>
-<input type="hidden" id="pageType" value="rides"/>
 </div>
+<input type="hidden" id="pageType" value="rides"/>
 </body>
 <script src="../resources/js/show_ride.js"></script>
 <script src="../resources/js/show_request.js"></script>

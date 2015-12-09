@@ -29,8 +29,8 @@ public class RequestServiceImpl implements com.hibernate.test.api.RequestService
 		requestDAO.createRequest(newRequest);
 	}
 
-	public void respondToRequest() {
-		// TODO Auto-generated method stub
+	public void respondToRequest(Long rideId, Long requestId, int actionType) {
+		requestDAO.respondToRequest(rideId, requestId, actionType);
 		
 	}
 

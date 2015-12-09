@@ -233,4 +233,35 @@ public class RequestDAOImpl extends CustomHibernateDaoSupport implements Request
 		criteria.add(Restrictions.eq("ride", ride));
 		return criteria.list();
 	}
+	
+	public void editRequestRideMapping(RequestRideMapping updateMapping)
+	{
+		try {
+			getHibernateTemplate().saveOrUpdate(updateMapping);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void respondToRequest(Long rideId, Long requestId, int actionType){
+		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+		Criteria criteria = session.createCriteria(RequestRideMapping.class);
+		criteria.createAlias("request", "request");
+		criteria.add(Restrictions.eq("request.request_id", requestId));
+		criteria.createAlias("ride", "ride");
+		criteria.add(Restrictions.eq("ride.rideId", rideId));
+		
+		List<RequestRideMapping> reqRideList = criteria.list();
+		
+		if(!reqRideList.isEmpty()){
+			if(actionType == 1){
+				reqRideList.get(0).setRequestRideStatus(RequestRideStatus.ACCEPTED);
+				
+			}
+			else{
+				reqRideList.get(0).setRequestRideStatus(RequestRideStatus.REJECTED);
+			}
+			editRequestRideMapping(reqRideList.get(0));
+		}
+	}
 }
