@@ -4,6 +4,7 @@
 <jsp:include page="header.jsp"></jsp:include>
 <html>
 <body>
+<div class="main_container">
 <form id="new_ride" action="javascript:submit_new_ride();" method="post">
 <label>Source : </label><input type="text" id="startPoint" name="startPoint"/><br/>
 <label>Destination : </label><input type="text" id="destination" name="destination"/><br/>
@@ -15,6 +16,7 @@
 <label>Comments : </label><input type="text" id="comments" name="comments"/><br/>
 <button type="submit">Post Ride</button>
 </form>
+</div>
 </body>
 <script src="../resources/js/new_ride.js"></script>
 </html>

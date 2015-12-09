@@ -4,6 +4,7 @@
 <jsp:include page="header.jsp"></jsp:include>
 <html>
 <body>
+<div class="main_container">
 <form id="new_request" action="javascript:submit_new_request();" method="post">
 <label>Pick Up : </label><input type="text" id="pickupPlace" name="pickupPlace"/><br/>
 <label>Destination : </label><input type="text" id="destination" name="destination"/><br/>
@@ -11,6 +12,7 @@
 <label>Comments : </label><input type="text" id="comments" name="comments"/><br/>
 <button type="submit">Submit Request</button>
 </form>
+</div>
 </body>
 <script src="../resources/js/new_request.js"></script>
 </html>
