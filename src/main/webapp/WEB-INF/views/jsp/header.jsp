@@ -17,12 +17,17 @@
 </head>
 <body>
 
-	<div id="fb_login_button">
-		<fb:login-button scope="public_profile,email"
-			onlogin="checkLoginState();"></fb:login-button>
-	</div>
-
-	<div id="status"></div>
+	<table>
+		<tr>
+			<td>
+				<div id="fb_login_button">
+					<fb:login-button scope="public_profile,email"
+						onlogin="checkLoginState();"></fb:login-button>
+				</div>
+				<div id="status"></div>
+			</td>
+		</tr>
+	</table>
 	<div class="main_container">
 	<table>
 		<tr>
