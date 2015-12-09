@@ -17,6 +17,7 @@ import com.hibernate.test.pojo.RequestRideMapping;
 import com.hibernate.test.pojo.RequestRideStatus;
 import com.hibernate.test.pojo.Ride;
 import com.hibernate.test.pojo.User;
+import com.hibernate.test.util.DateManipulation;
 import com.hibernate.test.util.HibernateUtil;
 
 @Repository
@@ -79,7 +80,17 @@ public class RideDAOImpl extends CustomHibernateDaoSupport implements RideDAOInt
 		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
 		Criteria criteria = session.createCriteria(Ride.class);
 		criteria.add(Restrictions.eq("rideOwner", postedBy));
-		return criteria.list();
+		List<Ride> list = criteria.list();
+		for(Ride ride : list){
+			for(RequestRideMapping requestRideMapping : ride.getRequestRideMappings()){
+				requestRideMapping.getRequest().getRequestedBy().getEmailAddress();
+				requestRideMapping.getRequest().getRequestedBy().getFirstName();
+				requestRideMapping.getRequest().getPickupPlace();
+				requestRideMapping.getRequest().getDestination();
+				requestRideMapping.getRequest().getStartTime();
+			}
+		}
+		return list;
 		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
@@ -183,12 +194,24 @@ public class RideDAOImpl extends CustomHibernateDaoSupport implements RideDAOInt
 		}*/
 	}
 
-	public List<Ride> getAllRidesFilteredOnDateAndUser(Request request) {
+	public List<Ride> getAllRidesFilteredOnDateAndUser(Request request, List<Long> rideIds) {
 		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
 		Criteria criteria = session.createCriteria(Ride.class);
 		//criteria.createAlias("rideOwner", arg1)
-		criteria.add(Restrictions.eq("startTime", request.getStartTime()));
+		criteria.add(Restrictions.ge("startTime", DateManipulation.subtractDays(request.getStartTime(), 1))); 
+		criteria.add(Restrictions.lt("startTime", DateManipulation.addDays(request.getStartTime(), 1)));
+		//criteria.add(Restrictions.eq("startTime", request.getStartTime()));
 		criteria.add(Restrictions.ne("rideOwner", request.getRequestedBy()));
+		if(!rideIds.isEmpty()){
+			criteria.add(Restrictions.not(Restrictions.in("rideId", rideIds)));
+		}
+		return criteria.list();
+	}
+	
+	public List<RequestRideMapping> getAllRideRequestMapping(Request request){
+		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+		Criteria criteria = session.createCriteria(RequestRideMapping.class);
+		criteria.add(Restrictions.eq("request", request));
 		return criteria.list();
 	}
 	
@@ -207,7 +230,7 @@ public class RideDAOImpl extends CustomHibernateDaoSupport implements RideDAOInt
 			return false;
 		}
 	}
-
+	
 	public void addRequestToRide(RequestRideMapping mappingObj) {
 		// TODO Auto-generated method stub
 		
