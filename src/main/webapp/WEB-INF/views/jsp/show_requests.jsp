@@ -32,14 +32,16 @@
 	%><tr>
 	<td align="center"><%=requests.getPickupPlace()%> </td>
 	<td align="center"> <%=requests.getDestination()%> </td>
-	<td align="center"> <%=requests.getRequestTime()%></td> 
+	<td align="center"> <%=requests.getStartTime()%></td> 
 	<td>
 		<input type="button" onclick="showAllRidesFilteredOnDate(<%=requests.getRequest_id()%>);" value="View All Rides"></input>
+		<input type="button" onclick="respondToRequest(28,11, 1);" value="Accept Request"></input> 
+		<input type="button" onclick="respondToRequest(28,11, 2);" value="Reject Request"></input>
 	</td>
 	</tr><%
 } %>
 </table>
-
+<input type="hidden" id="pageType" value="request"/>
 </body>
 <script src="../resources/js/show_ride.js"></script>
 </html>

@@ -14,7 +14,7 @@ public interface RequestServiceInterface {
 	
 	//This method is used to update the status of the request
 	//@param status-accepted or rejected
-	public void respondToRequest();
+	public void respondToRequest(Long rideId, Long requestId, int actionType);
 	
 	//This method allows you to delete a request
 	//@param identifier of the request

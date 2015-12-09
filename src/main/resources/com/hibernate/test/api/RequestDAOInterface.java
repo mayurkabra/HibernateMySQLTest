@@ -22,4 +22,5 @@ public interface RequestDAOInterface {
 	public boolean isMappingExistingForRequestRideMap(Request request, Ride ride);
 	public List<RequestRideMapping> getAllRideRequestMapping(Ride ride);
 	public List<Request> getAllRequestsFilteredOnDateAndUser(Ride ride, List<Long> requestIds);
+	public void respondToRequest(Long rideId, Long requestId, int actionType);
 }

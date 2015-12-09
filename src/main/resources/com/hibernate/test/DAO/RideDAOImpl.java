@@ -80,7 +80,17 @@ public class RideDAOImpl extends CustomHibernateDaoSupport implements RideDAOInt
 		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
 		Criteria criteria = session.createCriteria(Ride.class);
 		criteria.add(Restrictions.eq("rideOwner", postedBy));
-		return criteria.list();
+		List<Ride> list = criteria.list();
+		for(Ride ride : list){
+			for(RequestRideMapping requestRideMapping : ride.getRequestRideMappings()){
+				requestRideMapping.getRequest().getRequestedBy().getEmailAddress();
+				requestRideMapping.getRequest().getRequestedBy().getFirstName();
+				requestRideMapping.getRequest().getPickupPlace();
+				requestRideMapping.getRequest().getDestination();
+				requestRideMapping.getRequest().getStartTime();
+			}
+		}
+		return list;
 		/*SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		

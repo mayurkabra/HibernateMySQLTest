@@ -26,7 +26,7 @@
 	<table>
 		<tr>
 			<th>
-				<form method="post" action="../reqmc/showRequests">
+				<form id="showRequests" method="post" action="../reqmc/showRequests">
 					<input type="hidden" id="userTypeId" name="userTypeId"
 						class="userTypeId"> <input type="submit" value="Requests">
 				</form>
@@ -41,7 +41,7 @@
 	<table>
 		<tr>
 			<th>
-				<form method="post" action="../rmc/showUserRides">
+				<form id="showRides" method="post" action="../rmc/showUserRides">
 					<input type="hidden" id="userTypeId" name="userTypeId"
 						class="userTypeId"> <input type="submit" value="My Rides">
 				</form>

@@ -3,6 +3,7 @@ package com.hibernate.test.DAO;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -124,7 +125,22 @@ public class RequestDAOImpl extends CustomHibernateDaoSupport implements Request
 		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
 		Criteria criteria = session.createCriteria(Request.class);
 		criteria.add(Restrictions.eq("requestedBy", requestedBy));
-		return criteria.list();
+		//criteria.createAlias("requestRideMappings", "rrm");
+		//criteria.createAlias("rrm.ride", "r");
+		//criteria.setFetchMode("r.startPoint", FetchMode.DEFAULT);
+		/*criteria.setFetchMode("requestRideMappings", FetchMode.JOIN);
+		criteria.setFetchMode("rrm.ride", FetchMode.JOIN);*/
+		List<Request> list = criteria.list();
+		for(Request request : list){
+			for(RequestRideMapping requestRideMapping : request.getRequestRideMappings()){
+				requestRideMapping.getRide().getRideOwner().getEmailAddress();
+				requestRideMapping.getRide().getRideOwner().getFirstName();
+				requestRideMapping.getRide().getStartPoint();
+				requestRideMapping.getRide().getDestination();
+				requestRideMapping.getRide().getStartTime();
+			}
+		}
+		return list;
 	}
 	
 	/*public void createNewRequestRideMapping(Request request, Ride ride){
@@ -216,5 +232,36 @@ public class RequestDAOImpl extends CustomHibernateDaoSupport implements Request
 		Criteria criteria = session.createCriteria(RequestRideMapping.class);
 		criteria.add(Restrictions.eq("ride", ride));
 		return criteria.list();
+	}
+	
+	public void editRequestRideMapping(RequestRideMapping updateMapping)
+	{
+		try {
+			getHibernateTemplate().saveOrUpdate(updateMapping);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void respondToRequest(Long rideId, Long requestId, int actionType){
+		Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+		Criteria criteria = session.createCriteria(RequestRideMapping.class);
+		criteria.createAlias("request", "request");
+		criteria.add(Restrictions.eq("request.request_id", requestId));
+		criteria.createAlias("ride", "ride");
+		criteria.add(Restrictions.eq("ride.rideId", rideId));
+		
+		List<RequestRideMapping> reqRideList = criteria.list();
+		
+		if(!reqRideList.isEmpty()){
+			if(actionType == 1){
+				reqRideList.get(0).setRequestRideStatus(RequestRideStatus.ACCEPTED);
+				
+			}
+			else{
+				reqRideList.get(0).setRequestRideStatus(RequestRideStatus.REJECTED);
+			}
+			editRequestRideMapping(reqRideList.get(0));
+		}
 	}
 }

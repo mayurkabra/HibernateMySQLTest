@@ -126,3 +126,24 @@ $(document).ready(function() {
 		$('#loginbutton,#feedbutton').removeAttr('disabled');
 	});
 });
+
+function respondToRequest(rideId, requestId, actionType){
+	var pageType = $("#pageType").val();
+	var param = {rideId:rideId, requestId:requestId, actionType:actionType};
+	$.ajax({
+		url: "../cmc/respondToRequest",
+		type: "POST",
+		data : param,
+		success: function(data){
+			if(pageType == "request"){
+				$("#showRequests").submit();
+			}
+			else{
+				$("#showRides").submit();
+			}
+		},
+		error: function(result){
+			alert("error");
+		}
+	});	
+}
