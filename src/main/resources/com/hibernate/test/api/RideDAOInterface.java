@@ -15,6 +15,7 @@ public interface RideDAOInterface {
 	public Ride fetchRide(long rideId);
 	public List<Ride> fetchUserRides(User user);
 	public void addRequestToRide(RequestRideMapping mappingObj);
-	public List<Ride> getAllRidesFilteredOnDateAndUser(Request request);
+	public List<Ride> getAllRidesFilteredOnDateAndUser(Request request, List<Long> rideIds);
 	public boolean createNewRideRequestMapping(Request request, Ride ride);
+	public List<RequestRideMapping> getAllRideRequestMapping(Request request);
 }
