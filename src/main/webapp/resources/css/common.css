@@ -156,3 +156,6 @@ table tbody tr:last-child td{
 	display:none;
 	align:center;
 }
+table{
+	width: auto;
+}
