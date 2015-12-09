@@ -1,5 +1,6 @@
 package com.hibernate.test.Services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -73,7 +74,12 @@ public class RequestServiceImpl implements com.hibernate.test.api.RequestService
 	
 	public List<Request> getAllRequestsFilteredOnDateAndUser(Long rideId){
 		Ride ride = rideDAO.fetchRide(rideId);
-		return requestDAO.getAllRequestsFilteredOnDateAndUser(ride);
+		List<RequestRideMapping> requestRideList = requestDAO.getAllRideRequestMapping(ride);
+		List<Long> requestIds = new ArrayList<Long>();
+		for(RequestRideMapping requestRide : requestRideList){
+			requestIds.add(requestRide.getRequest().getRequest_id());
+		}
+		return requestDAO.getAllRequestsFilteredOnDateAndUser(ride, requestIds);
 	}
 
 	public int createRequestRideMapping(Long[] selectedRequestIds, Long rideId){
