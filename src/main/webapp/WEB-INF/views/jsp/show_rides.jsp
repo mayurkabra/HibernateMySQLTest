@@ -1,3 +1,4 @@
+<%@page import="com.hibernate.test.pojo.RequestRideMapping"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.hibernate.test.pojo.Ride"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -33,23 +34,24 @@
 		<th>Price Negotiable</th>
 		<th>Actions</th>
 		</tr>
-<%for(Ride ride : (ArrayList<Ride>)request.getAttribute("userRideList")){
+<%ArrayList<Ride> userRideList =(ArrayList<Ride>)request.getAttribute("userRideList"); 
+for(Ride ride : userRideList){
 %>	<tr>
-		<td align="center"><%=ride.getStartPoint()%> </td>
-		<td align="center"> <%=ride.getDestination()%> </td>
-		<td align="center"> <%=ride.getStartTime()%></td> 
-		<td align="center"> <%=ride.getMaxNoOfPassengers()%></td> 
-		<td align="center"> <%=ride.getPricePerUser()%></td> 
+		<td align="left"><%=ride.getStartPoint()%> </td>
+		<td align="left"> <%=ride.getDestination()%> </td>
+		<td align="left"> <%=ride.getStartTime()%></td> 
+		<td align="left"> <%=ride.getMaxNoOfPassengers()%></td> 
+		<td align="left"> <%=ride.getPricePerUser()%></td> 
 <%
 	if(ride.isPickupOtherThanStartProvided())
 	{
 %>
-		<td align="center">Yes</td> 
+		<td align="left">Yes</td> 
 <%
 	}
 	else{
 %>
-		<td align="center">No</td>
+		<td align="left">No</td>
 <%
 	}
 %>
@@ -57,19 +59,19 @@
 	if(ride.isPriceNegotiable())
 	{
 %>
-		<td align="center">Yes</td> 
+		<td align="left">Yes</td> 
 <%
 	}
 	else{
 %>
-		<td align="center">No</td>
+		<td align="left">No</td>
 <%
 	}
 %>
 		<td> 
 		<form method="post" action="../rmc/editRide">
 			<input type="hidden" id="rideId" name="rideId" value="<%=ride.getRideId() %>"></input>
-			<input type="submit" value="Edit Ride">
+			<!-- <input type="submit" value="Edit Ride"> -->
 		</form>
 		<input id="openDialog" type="button" onclick="showAllRequestsFilteredOnDate(<%=ride.getRideId()%>);" value="View All Requests"></input>
 		<input type="button" onclick="respondToRequest(28,11,1);" value="Accept Request"></input> 
@@ -79,6 +81,13 @@
 			<input type="button" onclick="viewAndPostComments(<%=ride.getRideId()%>);" value="View & Post Comments"></input> 			
 		--></td>
 	</tr><%
+	if(ride.getRequestRideMappings()!=null && ride.getRequestRideMappings().size()>0){
+		for(RequestRideMapping requestRideMapping : ride.getRequestRideMappings()){
+			%>
+			<tr><td colspan="6"><i>&nbsp &nbsp <b><%=requestRideMapping.getRequest().getRequestedBy().getFirstName() %>(<%=requestRideMapping.getRequest().getRequestedBy().getEmailAddress() %>)</b> needs to be picked up from <b><%=requestRideMapping.getRequest().getPickupPlace() %></b> for <b><%=requestRideMapping.getRequest().getDestination() %></b> at <b><%=requestRideMapping.getRequest().getStartTime() %></b></i></td></tr>
+			<%
+		}
+	}
 } %>
 </table>
 <input type="hidden" id="pageType" value="rides"/>

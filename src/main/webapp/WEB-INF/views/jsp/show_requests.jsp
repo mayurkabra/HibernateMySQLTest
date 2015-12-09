@@ -1,3 +1,5 @@
+<%@page import="com.hibernate.test.pojo.RequestRideMapping"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.hibernate.test.pojo.Request"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -27,11 +29,13 @@
 		<th>Pickup</th>
 		<th>Destination</th>
 		<th>Pickup Time</th>
+		<th>Actions</th>
 		</tr>
-<%for(Request requests : (ArrayList<Request>)request.getAttribute("allRequests")){
+<%ArrayList<Request> allRequests = (ArrayList<Request>)request.getAttribute("allRequests");
+for(Request requests : allRequests){
 	%><tr>
-	<td align="center"><%=requests.getPickupPlace()%> </td>
-	<td align="center"> <%=requests.getDestination()%> </td>
+	<td align="left"><%=requests.getPickupPlace()%> </td>
+	<td align="left"> <%=requests.getDestination()%> </td>
 	<td align="center"> <%=requests.getStartTime()%></td> 
 	<td>
 		<input type="button" onclick="showAllRidesFilteredOnDate(<%=requests.getRequest_id()%>);" value="View All Rides"></input>
@@ -39,6 +43,16 @@
 		<input type="button" onclick="respondToRequest(28,11, 2);" value="Reject Request"></input>
 	</td>
 	</tr><%
+	if(requests.getRequestRideMappings()!=null && requests.getRequestRideMappings().size()>0){
+		List<RequestRideMapping> rrm = requests.getRequestRideMappings();
+		for(RequestRideMapping requestRideMapping : rrm){
+			%>
+			<tr>
+				<td colspan="3">&nbsp &nbsp <i><b><%=requestRideMapping.getRide().getRideOwner().getFirstName()%></b>(<b><%=requestRideMapping.getRide().getRideOwner().getEmailAddress() %></b>) will leave for <b><%=requestRideMapping.getRide().getDestination() %></b> from <b><%=requestRideMapping.getRide().getStartPoint() %></b> at <b><%=requestRideMapping.getRide().getStartTime() %></b></i></td>
+			</tr>
+			<%
+		}
+	}
 } %>
 </table>
 <input type="hidden" id="pageType" value="request"/>
