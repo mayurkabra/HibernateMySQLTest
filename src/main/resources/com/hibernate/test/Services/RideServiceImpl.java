@@ -1,5 +1,6 @@
 package com.hibernate.test.Services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -57,7 +58,12 @@ public class RideServiceImpl implements com.hibernate.test.api.RideServiceInterf
 	
 	public List<Ride> getAllRidesFilteredOnDateAndUser(Long requestId){
 		Request request = requestDAO.fetchRequest(requestId);
-		return rideDAO.getAllRidesFilteredOnDateAndUser(request);
+		List<RequestRideMapping> requestRideList = rideDAO.getAllRideRequestMapping(request);
+		List<Long> rideIds = new ArrayList<Long>();
+		for(RequestRideMapping requestRide : requestRideList){
+			rideIds.add(requestRide.getRide().getRideId());
+		}
+		return rideDAO.getAllRidesFilteredOnDateAndUser(request, rideIds);
 	}
 	
 	public int createRideRequestMapping(Long[] selectedRideIds, Long requestId){
